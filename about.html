@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于我们 — AutoMax 二手车</title>
+  <meta name="description" content="AutoMax 二手车：5年深耕二手车市场，128项认证检测，0事故保障。了解我们的使命、团队和数据。">
+  <link rel="canonical" href="https://www.automax.com/about.html">
+
+  <meta property="og:title" content="关于我们 — AutoMax 二手车">
+  <meta property="og:description" content="5年深耕，128项认证，0事故保障。了解AutoMax的故事和团队">
+  <meta property="og:url" content="https://www.automax.com/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.automax.com/images/og-about.jpg">
+  <meta property="og:site_name" content="AutoMax 二手车">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#1E40AF', light: '#3B82F6', dark: '#1E3A8A' },
+            accent:  { DEFAULT: '#F59E0B', light: '#FBBF24', dark: '#D97706' },
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+  <!-- ===== NAV ===== -->
+  <nav class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <span class="text-2xl font-black tracking-tight text-primary-DEFAULT">AutoMax</span>
+          <span class="text-xs font-medium text-accent-DEFAULT border border-accent-DEFAULT rounded px-1">二手车</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+          <a href="index.html" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-DEFAULT">首页</a>
+          <a href="vehicles.html" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-DEFAULT">车源</a>
+          <a href="about.html" class="text-sm font-medium text-primary-DEFAULT dark:text-primary-light">关于我们</a>
+          <a href="contact.html" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-DEFAULT">联系我们</a>
+          <a href="vehicles.html" class="bg-primary-DEFAULT hover:bg-primary-dark text-white text-sm font-bold px-5 py-2 rounded-lg transition-colors">立即选车</a>
+          <button id="theme-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="切换暗黑模式">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+        </div>
+        <div class="flex items-center gap-3 md:hidden">
+          <button id="theme-toggle-mobile" class="p-2 rounded-lg text-gray-500 dark:text-gray-400" aria-label="切换暗黑模式">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+          <button id="mobile-menu-btn" class="p-2 rounded-lg text-gray-600 dark:text-gray-300" aria-label="打开菜单">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800 px-4 py-4 space-y-3">
+      <a href="index.html" class="block text-sm font-medium text-gray-600 dark:text-gray-300">首页</a>
+      <a href="vehicles.html" class="block text-sm font-medium text-gray-600 dark:text-gray-300">车源</a>
+      <a href="about.html" class="block text-sm font-medium text-primary-DEFAULT">关于我们</a>
+      <a href="contact.html" class="block text-sm font-medium text-gray-600 dark:text-gray-300">联系我们</a>
+      <a href="vehicles.html" class="block bg-primary-DEFAULT text-white text-sm font-bold px-5 py-2 rounded-lg text-center">立即选车</a>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="bg-gradient-to-r from-primary-DEFAULT to-primary-dark text-white py-16 lg:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl lg:text-4xl font-black mb-3">关于 AutoMax</h1>
+      <p class="text-white/80 max-w-xl mx-auto">5年深耕二手车市场，让每一笔购车都安心、透明、简单</p>
+    </div>
+  </section>
+
+  <!-- ===== OUR STORY ===== -->
+  <section class="py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">我们的故事</h2>
+      <div class="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed">
+        <p>AutoMax 成立于 2021 年，源于一个简单的信念：<strong class="text-gray-900 dark:text-white">买二手车不应该是一件让人焦虑的事</strong>。</p>
+        <p>创始人曾在传统二手车市场亲身经历信息不透明、检测敷衍、售后缺失的痛点。这些经历催生了 AutoMax — 一家把<strong class="text-gray-900 dark:text-white">透明</strong>和<strong class="text-gray-900 dark:text-white">保障</strong>作为核心承诺的认证二手车品牌。</p>
+        <p>我们从第一天起就坚持：每辆车必须经过 128 项专业检测，检测报告完整公开；客户不满意，30 天内无条件退车；核心部件 1 年质保，不让买家承担意外风险。</p>
+        <p>5 年来，AutoMax 已服务超过 <strong class="text-gray-900 dark:text-white">3,000</strong> 位车主，退车率不到 2%，客户满意度 96%。我们相信，<strong class="text-gray-900 dark:text-white">信任是最好的生意</strong>。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS ===== -->
+  <section class="py-12 bg-primary-DEFAULT">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="text-4xl font-black text-white mb-1">5年</div>
+          <p class="text-white/80 text-sm">深耕二手车市场</p>
+        </div>
+        <div>
+          <div class="text-4xl font-black text-white mb-1">3,000+</div>
+          <p class="text-white/80 text-sm">服务车主</p>
+        </div>
+        <div>
+          <div class="text-4xl font-black text-white mb-1">128项</div>
+          <p class="text-white/80 text-sm">专业检测</p>
+        </div>
+        <div>
+          <div class="text-4xl font-black text-accent-DEFAULT mb-1">96%</div>
+          <p class="text-white/80 text-sm">客户满意度</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MISSION ===== -->
+  <section class="py-16 lg:py-20 bg-gray-50 dark:bg-gray-800/50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">使命与愿景</h2>
+      <div class="grid sm:grid-cols-2 gap-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-md">
+          <div class="text-primary-DEFAULT text-lg font-bold mb-2">使命</div>
+          <p class="text-gray-600 dark:text-gray-400">让每一笔二手车交易都安心、透明、简单</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-md">
+          <div class="text-accent-DEFAULT text-lg font-bold mb-2">愿景</div>
+          <p class="text-gray-600 dark:text-gray-400">成为中国最受信赖的认证二手车品牌</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TEAM ===== -->
+  <section class="py-16 lg:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center">核心团队</h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="text-center">
+          <img src="https://placehold.co/200x200/1E40AF/FFFFFF?text=CEO" alt="CEO" class="w-24 h-24 rounded-full mx-auto mb-4" loading="lazy">
+          <h3 class="font-bold text-gray-900 dark:text-white">陈志远</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">创始人 & CEO</p>
+          <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">10年汽车行业经验，前4A店检测总监</p>
+        </div>
+        <div class="text-center">
+          <img src="https://placehold.co/200x200/F59E0B/FFFFFF?text=CTO" alt="CTO" class="w-24 h-24 rounded-full mx-auto mb-4" loading="lazy">
+          <h3 class="font-bold text-gray-900 dark:text-white">李文静</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">技术总监</p>
+          <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">128项检测体系设计者，汽车工程硕士</p>
+        </div>
+        <div class="text-center">
+          <img src="https://placehold.co/200x200/3B82F6/FFFFFF?text=COO" alt="COO" class="w-24 h-24 rounded-full mx-auto mb-4" loading="lazy">
+          <h3 class="font-bold text-gray-900 dark:text-white">王海涛</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400">运营总监</p>
+          <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">8年电商运营，打造全国配送体系</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="py-12 bg-accent-DEFAULT">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-black text-gray-900 mb-4">信任是最好的生意</h2>
+      <p class="text-gray-800 mb-6">体验 AutoMax 认证二手车，从选车到提车全程安心</p>
+      <a href="vehicles.html" class="bg-gray-900 hover:bg-gray-800 text-white font-bold px-8 py-3 rounded-lg text-lg transition-colors inline-block">立即选车</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-gray-900 dark:bg-gray-950 text-gray-400 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xl font-black text-white">AutoMax</span>
+            <span class="text-xs font-medium text-accent-DEFAULT border border-accent-DEFAULT rounded px-1">二手车</span>
+          </div>
+          <p class="text-sm text-gray-400">认证二手车经销商<br>0事故保障 · 30天退车 · 全国配送</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-3 text-sm">快速链接</h4>
+          <div class="space-y-2 text-sm">
+            <a href="vehicles.html" class="hover:text-white transition-colors">车源列表</a>
+            <a href="about.html" class="hover:text-white transition-colors block">关于我们</a>
+            <a href="contact.html" class="hover:text-white transition-colors block">联系我们</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-3 text-sm">购车保障</h4>
+          <div class="space-y-2 text-sm">
+            <span>0事故认证</span><span class="block">30天退车</span><span class="block">1年核心质保</span><span class="block">全国配送</span>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-3 text-sm">联系方式</h4>
+          <div class="space-y-2 text-sm">
+            <span>电话：400-888-9999</span>
+            <a href="https://wa.me/4008889999" class="block hover:text-white transition-colors">WhatsApp 聊天</a>
+            <span class="block">邮箱：hello@automax.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
+        <span>&copy; 2026 AutoMax 二手车. All rights reserved.</span>
+        <span>认证二手车 · 品质透明 · 价格透明</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function applyTheme(t) {
+      if (t === 'dark') document.documentElement.classList.add('dark');
+      else if (t === 'light') document.documentElement.classList.remove('dark');
+      else { if (window.matchMedia('(prefers-color-scheme:dark)').matches) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark'); }
+    }
+    applyTheme(localStorage.getItem('theme') || 'system');
+    document.querySelectorAll('#theme-toggle, #theme-toggle-mobile').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cur = localStorage.getItem('theme') || 'system';
+        const next = cur === 'light' ? 'dark' : cur === 'dark' ? 'system' : 'light';
+        localStorage.setItem('theme', next);
+        applyTheme(next);
+      });
+    });
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

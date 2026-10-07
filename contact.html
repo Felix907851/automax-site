@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>联系我们 — AutoMax 二手车</title>
+  <meta name="description" content="联系 AutoMax 二手车。电话 400-888-9999，WhatsApp 在线咨询，或填写联系表单。">
+  <link rel="canonical" href="https://www.automax.com/contact.html">
+
+  <meta property="og:title" content="联系我们 — AutoMax 二手车">
+  <meta property="og:description" content="电话、WhatsApp、在线表单 — 多种方式联系AutoMax">
+  <meta property="og:url" content="https://www.automax.com/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.automax.com/images/og-contact.jpg">
+  <meta property="og:site_name" content="AutoMax 二手车">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#1E40AF', light: '#3B82F6', dark: '#1E3A8A' },
+            accent:  { DEFAULT: '#F59E0B', light: '#FBBF24', dark: '#D97706' },
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+  <!-- ===== NAV ===== -->
+  <nav class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <span class="text-2xl font-black tracking-tight text-primary-DEFAULT">AutoMax</span>
+          <span class="text-xs font-medium text-accent-DEFAULT border border-accent-DEFAULT rounded px-1">二手车</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+          <a href="index.html" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-DEFAULT">首页</a>
+          <a href="vehicles.html" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-DEFAULT">车源</a>
+          <a href="about.html" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-DEFAULT">关于我们</a>
+          <a href="contact.html" class="text-sm font-medium text-primary-DEFAULT dark:text-primary-light">联系我们</a>
+          <a href="vehicles.html" class="bg-primary-DEFAULT hover:bg-primary-dark text-white text-sm font-bold px-5 py-2 rounded-lg transition-colors">立即选车</a>
+          <button id="theme-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="切换暗黑模式">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+        </div>
+        <div class="flex items-center gap-3 md:hidden">
+          <button id="theme-toggle-mobile" class="p-2 rounded-lg text-gray-500 dark:text-gray-400" aria-label="切换暗黑模式">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+          <button id="mobile-menu-btn" class="p-2 rounded-lg text-gray-600 dark:text-gray-300" aria-label="打开菜单">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800 px-4 py-4 space-y-3">
+      <a href="index.html" class="block text-sm font-medium text-gray-600 dark:text-gray-300">首页</a>
+      <a href="vehicles.html" class="block text-sm font-medium text-gray-600 dark:text-gray-300">车源</a>
+      <a href="about.html" class="block text-sm font-medium text-gray-600 dark:text-gray-300">关于我们</a>
+      <a href="contact.html" class="block text-sm font-medium text-primary-DEFAULT">联系我们</a>
+      <a href="vehicles.html" class="block bg-primary-DEFAULT text-white text-sm font-bold px-5 py-2 rounded-lg text-center">立即选车</a>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="bg-gradient-to-r from-primary-DEFAULT to-primary-dark text-white py-16 lg:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl lg:text-4xl font-black mb-3">联系我们</h1>
+      <p class="text-white/80">电话、WhatsApp、在线表单 — 多种方式联系 AutoMax</p>
+    </div>
+  </section>
+
+  <!-- ===== QUICK CONTACT ===== -->
+  <section class="py-12 lg:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-3 gap-6 mb-12">
+        <!-- Phone -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md text-center">
+          <div class="w-12 h-12 mx-auto mb-4 bg-primary-DEFAULT text-white rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-2">电话咨询</h3>
+          <p class="text-lg font-bold text-primary-DEFAULT mb-1">400-888-9999</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">周一至周六 9:00-18:00</p>
+        </div>
+        <!-- WhatsApp -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md text-center">
+          <div class="w-12 h-12 mx-auto mb-4 bg-green-600 text-white rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 21l1.395-3.72C3.623 16.352 3 14.345 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-2">WhatsApp</h3>
+          <a href="https://wa.me/4008889999" class="text-lg font-bold text-green-600 dark:text-green-400 mb-1 hover:underline">在线聊天</a>
+          <p class="text-sm text-gray-500 dark:text-gray-400">24小时在线，快速回复</p>
+        </div>
+        <!-- Email -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md text-center">
+          <div class="w-12 h-12 mx-auto mb-4 bg-accent-DEFAULT text-gray-900 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="font-bold text-gray-900 dark:text-white mb-2">邮件咨询</h3>
+          <p class="text-lg font-bold text-accent-DEFAULT dark:text-accent-light mb-1">hello@automax.com</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">1个工作日内回复</p>
+        </div>
+      </div>
+
+      <!-- ===== CONTACT FORM ===== -->
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-md">
+          <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">在线留言</h2>
+          <form id="contact-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">姓名 *</label>
+              <input type="text" required placeholder="您的姓名" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">电话 *</label>
+              <input type="tel" required placeholder="您的手机号" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">邮箱</label>
+              <input type="email" placeholder="您的邮箱（选填）" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">咨询类型</label>
+              <select class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT">
+                <option>购车咨询</option>
+                <option>估价咨询</option>
+                <option>贷款咨询</option>
+                <option>售后/质保</option>
+                <option>其他</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">留言内容 *</label>
+              <textarea required rows="4" placeholder="请描述您的需求，如感兴趣的车型、预算等" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT resize-none"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-primary-DEFAULT hover:bg-primary-dark text-white font-bold px-6 py-3 rounded-lg transition-colors">提交留言</button>
+            <p class="text-xs text-gray-400 dark:text-gray-500 text-center">提交后客服将在2小时内联系您</p>
+          </form>
+          <!-- Success message (hidden by default) -->
+          <div id="form-success" class="hidden text-center py-8">
+            <div class="w-16 h-16 mx-auto mb-4 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl">✓</div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">留言已提交</h3>
+            <p class="text-gray-600 dark:text-gray-400">我们的客服将在2小时内联系您，感谢您的信任</p>
+          </div>
+        </div>
+
+        <!-- Map / Location Info -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-md">
+          <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">线下展厅</h2>
+          <div class="space-y-4 text-gray-600 dark:text-gray-400">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-DEFAULT mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.428 12.428a4 4 0 00-5.657 0L3.172 12a9 9 0 0113.856 0l1.342 1.342a3 3 0 004.243 4.243L21 19.657a9 9 0 01-3.343 0z"/></svg>
+              <div>
+                <p class="font-semibold text-gray-900 dark:text-white">深圳总部展厅</p>
+                <p class="text-sm">深圳市南山区科技园路 88 号 AutoMax大厦</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-DEFAULT mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div>
+                <p class="font-semibold text-gray-900 dark:text-white">营业时间</p>
+                <p class="text-sm">周一至周六 9:00 - 18:00<br>周日预约制</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <div>
+                <p class="font-semibold text-gray-900 dark:text-white">全国配送</p>
+                <p class="text-sm">异地购车可安排配送，无需到店<br>3-7天送达指定地点</p>
+              </div>
+            </div>
+          </div>
+          <!-- Map placeholder -->
+          <div class="mt-6 aspect-[4/3] rounded-xl bg-gray-200 dark:bg-gray-700 overflow-hidden relative">
+            <div class="absolute inset-0 flex items-center justify-center text-gray-400 dark:text-gray-500">
+              <div class="text-center">
+                <svg class="w-10 h-10 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.72A2 2 0 013 16.28V5.72a2 2 0 011.553-1.94L9 2m6 18l5.447-2.72A2 2 0 0021 16.28V5.72a2 2 0 00-1.553-1.94L15 2M9 20v-8m6 8v-8M9 2v8m6-2V2"/></svg>
+                <p class="text-sm">地图展示区<br>可嵌入 Google Maps iframe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-gray-900 dark:bg-gray-950 text-gray-400 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xl font-black text-white">AutoMax</span>
+            <span class="text-xs font-medium text-accent-DEFAULT border border-accent-DEFAULT rounded px-1">二手车</span>
+          </div>
+          <p class="text-sm text-gray-400">认证二手车经销商<br>0事故保障 · 30天退车 · 全国配送</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-3 text-sm">快速链接</h4>
+          <div class="space-y-2 text-sm">
+            <a href="vehicles.html" class="hover:text-white transition-colors">车源列表</a>
+            <a href="about.html" class="hover:text-white transition-colors block">关于我们</a>
+            <a href="contact.html" class="hover:text-white transition-colors block">联系我们</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-3 text-sm">购车保障</h4>
+          <div class="space-y-2 text-sm">
+            <span>0事故认证</span><span class="block">30天退车</span><span class="block">1年核心质保</span><span class="block">全国配送</span>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-3 text-sm">联系方式</h4>
+          <div class="space-y-2 text-sm">
+            <span>电话：400-888-9999</span>
+            <a href="https://wa.me/4008889999" class="block hover:text-white transition-colors">WhatsApp 聊天</a>
+            <span class="block">邮箱：hello@automax.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
+        <span>&copy; 2026 AutoMax 二手车. All rights reserved.</span>
+        <span>认证二手车 · 品质透明 · 价格透明</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dark mode
+    function applyTheme(t) {
+      if (t === 'dark') document.documentElement.classList.add('dark');
+      else if (t === 'light') document.documentElement.classList.remove('dark');
+      else { if (window.matchMedia('(prefers-color-scheme:dark)').matches) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark'); }
+    }
+    applyTheme(localStorage.getItem('theme') || 'system');
+    document.querySelectorAll('#theme-toggle, #theme-toggle-mobile').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cur = localStorage.getItem('theme') || 'system';
+        const next = cur === 'light' ? 'dark' : cur === 'dark' ? 'system' : 'light';
+        localStorage.setItem('theme', next);
+        applyTheme(next);
+      });
+    });
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Contact form submission (demo)
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.style.display = 'none';
+      document.getElementById('form-success').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全部车源 — AutoMax 二手车</title>
+  <meta name="description" content="AutoMax 二手车全部认证车源列表。按品牌、价格、年份筛选，找到适合您的二手车。">
+  <link rel="canonical" href="https://www.automax.com/vehicles.html">
+
+  <meta property="og:title" content="全部车源 — AutoMax 二手车">
+  <meta property="og:description" content="浏览 AutoMax 认证二手车全部车源，按品牌/价格/年份筛选">
+  <meta property="og:url" content="https://www.automax.com/vehicles.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.automax.com/images/og-vehicles.jpg">
+  <meta property="og:site_name" content="AutoMax 二手车">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#1E40AF', light: '#3B82F6', dark: '#1E3A8A' },
+            accent:  { DEFAULT: '#F59E0B', light: '#FBBF24', dark: '#D97706' },
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+  <!-- ===== NAV ===== -->
+  <nav class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2">
+          <span class="text-2xl font-black tracking-tight text-primary-DEFAULT">AutoMax</span>
+          <span class="text-xs font-medium text-accent-DEFAULT border border-accent-DEFAULT rounded px-1">二手车</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+          <a href="index.html" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-DEFAULT">首页</a>
+          <a href="vehicles.html" class="text-sm font-medium text-primary-DEFAULT dark:text-primary-light">车源</a>
+          <a href="about.html" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-DEFAULT">关于我们</a>
+          <a href="contact.html" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-DEFAULT">联系我们</a>
+          <a href="vehicles.html" class="bg-primary-DEFAULT hover:bg-primary-dark text-white text-sm font-bold px-5 py-2 rounded-lg transition-colors">立即选车</a>
+          <button id="theme-toggle" class="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="切换暗黑模式">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+        </div>
+        <div class="flex items-center gap-3 md:hidden">
+          <button id="theme-toggle-mobile" class="p-2 rounded-lg text-gray-500 dark:text-gray-400" aria-label="切换暗黑模式">
+            <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+          <button id="mobile-menu-btn" class="p-2 rounded-lg text-gray-600 dark:text-gray-300" aria-label="打开菜单">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800 px-4 py-4 space-y-3">
+      <a href="index.html" class="block text-sm font-medium text-gray-600 dark:text-gray-300">首页</a>
+      <a href="vehicles.html" class="block text-sm font-medium text-primary-DEFAULT">车源</a>
+      <a href="about.html" class="block text-sm font-medium text-gray-600 dark:text-gray-300">关于我们</a>
+      <a href="contact.html" class="block text-sm font-medium text-gray-600 dark:text-gray-300">联系我们</a>
+      <a href="vehicles.html" class="block bg-primary-DEFAULT text-white text-sm font-bold px-5 py-2 rounded-lg text-center">立即选车</a>
+    </div>
+  </nav>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="bg-gradient-to-r from-primary-DEFAULT to-primary-dark text-white py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl lg:text-4xl font-black mb-2">全部认证车源</h1>
+      <p class="text-white/80">100+ 辆精选二手车，按品牌、价格、年份筛选</p>
+    </div>
+  </section>
+
+  <!-- ===== FILTER BAR ===== -->
+  <section id="filter-bar" class="sticky top-16 z-40 bg-white dark:bg-gray-900 shadow-sm py-4 border-b dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-3 items-center">
+      <select id="filter-brand" class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT">
+        <option value="">全部品牌</option>
+        <option value="toyota">丰田</option>
+        <option value="honda">本田</option>
+        <option value="vw">大众</option>
+        <option value="bmw">宝马</option>
+        <option value="audi">奥迪</option>
+        <option value="benz">奔驰</option>
+      </select>
+      <select id="filter-price" class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT">
+        <option value="">全部价格</option>
+        <option value="0-50">5万以下</option>
+        <option value="50-100">5-10万</option>
+        <option value="100-200">10-20万</option>
+        <option value="200-300">20-30万</option>
+        <option value="300+">30万以上</option>
+      </select>
+      <select id="filter-year" class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT">
+        <option value="">全部年份</option>
+        <option value="2024">2024年</option>
+        <option value="2023">2023年</option>
+        <option value="2022">2022年</option>
+        <option value="2021">2021年</option>
+        <option value="2020">2020年</option>
+      </select>
+      <select id="filter-sort" class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-DEFAULT focus:border-primary-DEFAULT">
+        <option value="newest">最新上架</option>
+        <option value="price-low">价格从低到高</option>
+        <option value="price-high">价格从高到低</option>
+        <option value="mileage-low">里程最少</option>
+      </select>
+      <span class="text-sm text-gray-500 dark:text-gray-400 hidden sm:inline" id="result-count">共 12 辆</span>
+    </div>
+  </section>
+
+  <!-- ===== VEHICLE GRID ===== -->
+  <section class="py-8 lg:py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="vehicle-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+        <!-- Vehicle cards - rendered by JS -->
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="toyota" data-price="128800" data-year="2023" data-mileage="32000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/1E40AF/FFFFFF?text=Toyota+Camry" alt="丰田凯美瑞 2023款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">丰田凯美瑞 2023款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">1.5L 自动 · 3.2万公里 · 白色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥128,800</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥2,073</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="honda" data-price="108800" data-year="2022" data-mileage="58000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/D97706/FFFFFF?text=Honda+Accord" alt="本田雅阁 2022款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">本田雅阁 2022款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">1.5T 自动 · 5.8万公里 · 银色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥108,800</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥1,767</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="vw" data-price="88800" data-year="2024" data-mileage="12000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/3B82F6/FFFFFF?text=VW+Golf" alt="大众高尔夫 2024款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+            <span class="absolute top-3 right-3 bg-accent-DEFAULT text-gray-900 text-xs font-bold px-2 py-1 rounded">最新</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">大众高尔夫 2024款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">1.4T 自动 · 1.2万公里 · 蓝色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥88,800</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥1,438</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="bmw" data-price="218800" data-year="2023" data-mileage="45000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/DC2626/FFFFFF?text=BMW+3Series" alt="宝马3系 2023款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">宝马3系 2023款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">2.0T 自动 · 4.5万公里 · 黑色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥218,800</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥3,553</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="audi" data-price="158000" data-year="2022" data-mileage="62000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/6B21A8/FFFFFF?text=Audi+A4" alt="奥迪A4L 2022款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">奥迪A4L 2022款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">2.0T 自动 · 6.2万公里 · 灰色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥158,000</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥2,567</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="benz" data-price="268000" data-year="2023" data-mileage="38000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/78716C/FFFFFF?text=Benz+C" alt="奔驰C级 2023款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">奔驰C级 2023款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">1.5T 自动 · 3.8万公里 · 白色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥268,000</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥4,336</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="toyota" data-price="68800" data-year="2021" data-mileage="85000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/059669/FFFFFF?text=Toyota+Corolla" alt="丰田卡罗拉 2021款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">丰田卡罗拉 2021款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">1.2T 自动 · 8.5万公里 · 红色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥68,800</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥1,120</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="honda" data-price="92800" data-year="2023" data-mileage="28000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/B91C1C/FFFFFF?text=Honda+CR-V" alt="本田CR-V 2023款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+            <span class="absolute top-3 right-3 bg-accent-DEFAULT text-gray-900 text-xs font-bold px-2 py-1 rounded">热销</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">本田CR-V 2023款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">1.5T 自动 · 2.8万公里 · 黑色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥92,800</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥1,503</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="vw" data-price="76800" data-year="2022" data-mileage="42000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/44403C/FFFFFF?text=VW+Lavida" alt="大众朗逸 2022款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">大众朗逸 2022款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">1.4T 自动 · 4.2万公里 · 白色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥76,800</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥1,250</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="toyota" data-price="188000" data-year="2024" data-mileage="5000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/1E40AF/FFFFFF?text=Toyota+RAV4" alt="丰田RAV4 2024款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+            <span class="absolute top-3 right-3 bg-accent-DEFAULT text-gray-900 text-xs font-bold px-2 py-1 rounded">最新</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">丰田RAV4 2024款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">2.0L 自动 · 0.5万公里 · 银色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥188,000</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥3,047</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="honda" data-price="55800" data-year="2020" data-mileage="96000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/F59E0B/FFFFFF?text=Honda+Fit" alt="本田飞度 2020款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">本田飞度 2020款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">1.5L 自动 · 9.6万公里 · 蓝色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥55,800</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥912</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="vehicle-detail.html" class="vehicle-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden" data-brand="vw" data-price="118800" data-year="2023" data-mileage="24000">
+          <div class="relative aspect-[4/3] overflow-hidden bg-gray-200 dark:bg-gray-700">
+            <img src="https://placehold.co/600x400/E11D48/FFFFFF?text=VW+Tiguan" alt="大众途观L 2023款" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">认证</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-1">大众途观L 2023款</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">2.0T 自动 · 2.4万公里 · 白色</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-black text-primary-DEFAULT">¥118,800</span>
+              <span class="text-xs text-gray-400 dark:text-gray-500">月供 ¥1,930</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER (same as index.html) ===== -->
+  <footer class="bg-gray-900 dark:bg-gray-950 text-gray-400 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xl font-black text-white">AutoMax</span>
+            <span class="text-xs font-medium text-accent-DEFAULT border border-accent-DEFAULT rounded px-1">二手车</span>
+          </div>
+          <p class="text-sm text-gray-400">认证二手车经销商<br>0事故保障 · 30天退车 · 全国配送</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-3 text-sm">快速链接</h4>
+          <div class="space-y-2 text-sm">
+            <a href="vehicles.html" class="hover:text-white transition-colors">车源列表</a>
+            <a href="about.html" class="hover:text-white transition-colors block">关于我们</a>
+            <a href="contact.html" class="hover:text-white transition-colors block">联系我们</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-3 text-sm">购车保障</h4>
+          <div class="space-y-2 text-sm">
+            <span>0事故认证</span><span class="block">30天退车</span><span class="block">1年核心质保</span><span class="block">全国配送</span>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-3 text-sm">联系方式</h4>
+          <div class="space-y-2 text-sm">
+            <span>电话：400-888-9999</span>
+            <a href="https://wa.me/4008889999" class="block hover:text-white transition-colors">WhatsApp 聊天</a>
+            <span class="block">邮箱：hello@automax.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
+        <span>&copy; 2026 AutoMax 二手车. All rights reserved.</span>
+        <span>认证二手车 · 品质透明 · 价格透明</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dark mode (same as index)
+    function applyTheme(t) {
+      if (t === 'dark') document.documentElement.classList.add('dark');
+      else if (t === 'light') document.documentElement.classList.remove('dark');
+      else { if (window.matchMedia('(prefers-color-scheme:dark)').matches) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark'); }
+    }
+    applyTheme(localStorage.getItem('theme') || 'system');
+    document.querySelectorAll('#theme-toggle, #theme-toggle-mobile').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cur = localStorage.getItem('theme') || 'system';
+        const next = cur === 'light' ? 'dark' : cur === 'dark' ? 'system' : 'light';
+        localStorage.setItem('theme', next);
+        applyTheme(next);
+      });
+    });
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Filter & Sort
+    function applyFilters() {
+      const brand = document.getElementById('filter-brand').value;
+      const price = document.getElementById('filter-price').value;
+      const year = document.getElementById('filter-year').value;
+      const sort = document.getElementById('filter-sort').value;
+
+      const cards = Array.from(document.querySelectorAll('.vehicle-card'));
+      let visible = 0;
+
+      cards.forEach(card => {
+        const cb = card.dataset.brand;
+        const cp = parseInt(card.dataset.price);
+        const cy = parseInt(card.dataset.year);
+        const cm = parseInt(card.dataset.mileage);
+
+        let show = true;
+        if (brand && cb !== brand) show = false;
+        if (price) {
+          if (price === '0-50' && cp >= 50000) show = false;
+          if (price === '50-100' && (cp < 50000 || cp >= 100000)) show = false;
+          if (price === '100-200' && (cp < 100000 || cp >= 200000)) show = false;
+          if (price === '200-300' && (cp < 200000 || cp >= 300000)) show = false;
+          if (price === '300+' && cp < 300000) show = false;
+        }
+        if (year && cy !== parseInt(year)) show = false;
+
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      // Sort visible cards
+      const grid = document.getElementById('vehicle-grid');
+      const visibleCards = cards.filter(c => c.style.display !== 'none');
+      visibleCards.sort((a, b) => {
+        if (sort === 'price-low') return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+        if (sort === 'price-high') return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+        if (sort === 'mileage-low') return parseInt(a.dataset.mileage) - parseInt(b.dataset.mileage);
+        return parseInt(b.dataset.year) - parseInt(a.dataset.year); // newest
+      });
+      visibleCards.forEach(c => grid.appendChild(c));
+
+      document.getElementById('result-count').textContent = '共 ' + visible + ' 辆';
+    }
+
+    ['filter-brand', 'filter-price', 'filter-year', 'filter-sort'].forEach(id => {
+      document.getElementById(id).addEventListener('change', applyFilters);
+    });
+  </script>
+</body>
+</html>
