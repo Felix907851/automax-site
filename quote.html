@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>卡车外贸报价 · AutoMax</title>
+<meta name="description" content="中国重卡出口报价计算器：HOWO豪沃、陕汽德龙、一汽解放、福田欧曼全系车型参数查询与FOB/CIF报价测算，覆盖非洲、中亚等 29 个目标市场。">
+<link rel="canonical" href="https://felix907851.github.io/automax-site/quote.html">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: { DEFAULT: '#1E40AF', light: '#3B82F6', dark: '#1E3A8A' },
+          accent:  { DEFAULT: '#F59E0B', light: '#FBBF24', dark: '#D97706' },
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; }
+  .field-label { font-size: 12px; font-weight: 600; color: #64748b; margin-bottom: 6px; display: block; letter-spacing: .02em; }
+  select, input[type="number"], input[type="text"] {
+    width: 100%; padding: 8px 10px; font-size: 14px; color: #0f172a;
+    border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  select:focus, input:focus { border-color: #1E40AF; box-shadow: 0 0 0 3px rgba(30,64,175,.12); }
+  .chip {
+    display: inline-block; padding: 6px 12px; font-size: 13px; border-radius: 7px;
+    border: 1px solid #cbd5e1; background: #fff; color: #334155; cursor: pointer;
+    transition: all .15s; user-select: none;
+  }
+  .chip:hover { border-color: #1E40AF; color: #1E40AF; }
+  .chip.active { background: #1E40AF; border-color: #1E40AF; color: #fff; font-weight: 600; }
+  .chip.disabled { opacity: .35; cursor: not-allowed; background: #f1f5f9; }
+  .chip.disabled:hover { border-color: #cbd5e1; color: #334155; }
+  .rc { border-radius: 10px; padding: 14px 16px; background: #fff; border: 1px solid #e2e8f0; }
+  .rc-label { display: block; font-size: 12px; color: #64748b; margin-bottom: 4px; }
+  .rc-value { font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+  .rc.hl { background: linear-gradient(135deg,#1E40AF,#1E3A8A); border-color: #1E3A8A; }
+  .rc.hl .rc-label { color: rgba(255,255,255,.75); }
+  .rc.hl .rc-value { color: #fff; }
+  .rc.pos .rc-value { color: #b91c1c; }
+  .rc.neg .rc-value { color: #047857; }
+  table.cost { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.cost td { padding: 7px 10px; border-bottom: 1px solid #f1f5f9; }
+  table.cost td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  table.cost tr.total td { border-bottom: none; border-top: 2px solid #e2e8f0; font-weight: 800; color: #1E40AF; background: #f8fafc; }
+  .pgroup { border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; }
+  .pgroup h4 { background: #f8fafc; padding: 9px 14px; font-size: 13px; font-weight: 700; color: #1E3A8A; border-bottom: 1px solid #e2e8f0; margin: 0; }
+  .prow { display: flex; padding: 7px 14px; font-size: 13px; border-bottom: 1px solid #f8fafc; }
+  .prow:last-child { border-bottom: none; }
+  .prow dt { width: 42%; color: #64748b; flex-shrink: 0; }
+  .prow dd { margin: 0; color: #0f172a; font-weight: 600; word-break: break-all; }
+  .mcard { border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; overflow: hidden; transition: box-shadow .2s, border-color .2s; }
+  .mcard:hover { border-color: #93c5fd; box-shadow: 0 4px 16px rgba(30,64,175,.08); }
+  .mcard.active { border-color: #1E40AF; box-shadow: 0 0 0 2px rgba(30,64,175,.15); }
+  .badge { display: inline-block; padding: 2px 7px; border-radius: 5px; font-size: 11px; font-weight: 700; }
+  .scroll-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scroll-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  details > summary { cursor: pointer; list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+<!-- ===== NAV ===== -->
+<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="index.html" class="flex items-center gap-2">
+        <span class="text-2xl font-black tracking-tight text-primary">AutoMax</span>
+        <span class="text-xs font-medium text-accent border border-accent rounded px-1">卡车出口</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="index.html" class="text-sm font-medium text-gray-600 hover:text-primary">首页</a>
+        <a href="vehicles.html" class="text-sm font-medium text-gray-600 hover:text-primary">车源</a>
+        <a href="quote.html" class="text-sm font-medium text-primary">卡车报价</a>
+        <a href="about.html" class="text-sm font-medium text-gray-600 hover:text-primary">关于我们</a>
+        <a href="contact.html" class="text-sm font-medium text-gray-600 hover:text-primary">联系我们</a>
+      </div>
+      <div class="flex items-center gap-3 md:hidden">
+        <button id="mbtn" class="p-2 rounded-lg text-gray-600" aria-label="菜单">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mmenu" class="md:hidden hidden bg-white border-t px-4 py-4 space-y-3">
+    <a href="index.html" class="block text-sm font-medium text-gray-600">首页</a>
+    <a href="vehicles.html" class="block text-sm font-medium text-gray-600">车源</a>
+    <a href="quote.html" class="block text-sm font-medium text-primary">卡车报价</a>
+    <a href="about.html" class="block text-sm font-medium text-gray-600">关于我们</a>
+    <a href="contact.html" class="block text-sm font-medium text-gray-600">联系我们</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="bg-gradient-to-br from-primary via-primary-dark to-primary-light text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+    <h1 class="text-3xl lg:text-4xl font-black tracking-tight mb-2">卡车外贸报价系统</h1>
+    <p class="text-white/85 text-sm lg:text-base max-w-3xl">
+      中国重卡全系车型参数查询与出口报价测算 —— 支持 HOWO 豪沃、陕汽德龙、一汽解放、福田欧曼四大品牌
+      57 款车型，覆盖非洲、中亚等 29 个目标市场，自动测算 FOB / CIF 与目的国落地价。
+    </p>
+    <div class="flex flex-wrap gap-x-6 gap-y-2 mt-5 text-white/80 text-xs lg:text-sm">
+      <span>车型参数库 57 款</span>
+      <span>目标市场 29 国</span>
+      <span>FOB / CIF 双报价</span>
+      <span>目的国税费测算</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 报价计算器 ===== -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="grid lg:grid-cols-5 gap-6">
+
+    <!-- 左：输入 -->
+    <div class="lg:col-span-3 bg-white rounded-xl shadow-sm border border-gray-200 p-5 lg:p-6">
+      <h2 class="text-lg font-bold text-primary-dark mb-5">报价参数</h2>
+
+      <!-- 品牌 -->
+      <div class="mb-5">
+        <label class="field-label">品牌</label>
+        <div id="brandChips" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <!-- 类型 -->
+      <div class="mb-5">
+        <label class="field-label">车辆类型</label>
+        <div id="typeChips" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <!-- 型号 -->
+      <div class="mb-5">
+        <label class="field-label">车型（57 款可选）</label>
+        <select id="modelSel"></select>
+        <p id="modelHint" class="text-xs text-gray-500 mt-2"></p>
+      </div>
+
+      <!-- 驱动 / 排放 -->
+      <div class="grid sm:grid-cols-2 gap-5 mb-5">
+        <div>
+          <label class="field-label">驱动形式</label>
+          <div id="driveChips" class="flex flex-wrap gap-2"></div>
+        </div>
+        <div>
+          <label class="field-label">排放标准</label>
+          <div id="emissionChips" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+
+      <!-- 车况 -->
+      <div class="grid sm:grid-cols-3 gap-5 mb-5">
+        <div>
+          <label class="field-label">上牌年份</label>
+          <input type="number" id="yearInput" min="2000" max="2026" step="1">
+        </div>
+        <div>
+          <label class="field-label">行驶里程（km）</label>
+          <input type="number" id="mileageInput" min="0" step="1000">
+        </div>
+        <div>
+          <label class="field-label">车况</label>
+          <div id="condChips" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+
+      <!-- 市场 / 转向 -->
+      <div class="grid sm:grid-cols-2 gap-5 mb-5">
+        <div>
+          <label class="field-label">目标市场</label>
+          <select id="marketSel"></select>
+          <p id="marketHint" class="text-xs text-gray-500 mt-2"></p>
+        </div>
+        <div>
+          <label class="field-label">转向</label>
+          <div id="steerChips" class="flex flex-wrap gap-2"></div>
+          <p id="steerHint" class="text-xs text-gray-500 mt-2"></p>
+        </div>
+      </div>
+
+      <!-- 报价参数 -->
+      <div class="border-t border-gray-100 pt-5">
+        <h3 class="text-sm font-bold text-gray-700 mb-3">报价参数（可调整）</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div>
+            <label class="field-label">汇率 CNY/USD</label>
+            <input type="number" id="rateInput" step="0.0001">
+          </div>
+          <div>
+            <label class="field-label">利润率 %</label>
+            <input type="number" id="profitInput" step="0.5">
+          </div>
+          <div>
+            <label class="field-label">佣金 %</label>
+            <input type="number" id="commInput" step="0.5">
+          </div>
+          <div>
+            <label class="field-label">装船港杂费 $</label>
+            <input type="number" id="portFeeInput" step="50">
+          </div>
+          <div>
+            <label class="field-label">国内运输 ¥</label>
+            <input type="number" id="inlandInput" step="100">
+          </div>
+          <div>
+            <label class="field-label">检测认证 ¥</label>
+            <input type="number" id="inspectInput" step="100">
+          </div>
+          <div class="col-span-2">
+            <label class="field-label">车辆估价 ¥（留空自动估算）</label>
+            <input type="number" id="manualPriceInput" step="1000" placeholder="自动估算">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右：结果 -->
+    <div class="lg:col-span-2 space-y-4">
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+        <h2 class="text-lg font-bold text-primary-dark mb-4">报价结果</h2>
+        <div class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rc hl"><span class="rc-label">FOB 报价</span><span class="rc-value" id="fobUsd">$0</span></div>
+            <div class="rc hl"><span class="rc-label">CIF 报价</span><span class="rc-value" id="cifUsd">$0</span></div>
+          </div>
+          <div class="rc"><span class="rc-label">目的国落地价（含税）</span><span class="rc-value" id="landPrice">$0</span></div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rc pos" id="profitCard"><span class="rc-label">净利润</span><span class="rc-value" id="netProfit">¥0</span></div>
+            <div class="rc pos" id="roiCard"><span class="rc-label">投资回报率 ROI</span><span class="rc-value" id="roi">0%</span></div>
+          </div>
+          <div class="rc"><span class="rc-label">国内总成本</span><span class="rc-value" id="totalCost">¥0</span></div>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-900 leading-relaxed">
+        <p class="font-bold mb-1">说明</p>
+        <p>价格为系统参考测算，实际成交以双方确认的正式报价单为准。目的国税费按当地关税与增值税率估算，清关杂费及汇率波动可能导致落地价变化。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 费用明细 -->
+  <div class="grid md:grid-cols-3 gap-4 mt-6">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+      <h3 class="text-sm font-bold text-primary-dark mb-2">国内成本</h3>
+      <table class="cost"><tbody id="costTable"></tbody></table>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+      <h3 class="text-sm font-bold text-primary-dark mb-2">物流费用</h3>
+      <table class="cost"><tbody id="logisticsTable"></tbody></table>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+      <h3 class="text-sm font-bold text-primary-dark mb-2">目的国税费</h3>
+      <table class="cost"><tbody id="taxTable"></tbody></table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 当前车型参数 ===== -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 lg:p-6">
+    <div class="flex flex-wrap items-baseline justify-between gap-2 mb-5">
+      <h2 class="text-lg font-bold text-primary-dark">车型参数明细</h2>
+      <p id="paramTitle" class="text-sm text-gray-500"></p>
+    </div>
+    <div id="paramGroups" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+  </div>
+</section>
+
+<!-- ===== 全车型参数库 ===== -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 lg:p-6">
+    <h2 class="text-lg font-bold text-primary-dark mb-1">全车型参数库</h2>
+    <p class="text-sm text-gray-500 mb-5">共 57 款车型，点击卡片可直接套用到上方报价器；点「参数明细」展开 45 项完整规格。</p>
+
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+      <span class="text-xs font-semibold text-gray-500 mr-1">品牌</span>
+      <div id="libBrandChips" class="flex flex-wrap gap-2"></div>
+      <span class="text-xs font-semibold text-gray-500 ml-3 mr-1">类型</span>
+      <div id="libTypeChips" class="flex flex-wrap gap-2"></div>
+      <input type="text" id="libSearch" placeholder="搜索型号…" class="ml-auto" style="max-width:220px">
+    </div>
+
+    <div id="libGrid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-gray-900 text-gray-400 pt-12 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xl font-black text-white">AutoMax</span>
+          <span class="text-xs font-medium text-accent border border-accent rounded px-1">卡车出口</span>
+        </div>
+        <p class="text-sm leading-relaxed">中国重卡与工程机械出口贸易，车型参数查询与出口报价测算工具。</p>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">快速导航</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="index.html" class="hover:text-white">首页</a></li>
+          <li><a href="vehicles.html" class="hover:text-white">车源</a></li>
+          <li><a href="quote.html" class="hover:text-white">卡车报价</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">车型品牌</h4>
+        <ul class="space-y-2 text-sm">
+          <li>中国重汽 · 豪沃</li>
+          <li>陕汽 · 德龙</li>
+          <li>一汽解放 / 福田欧曼</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-3">联系我们</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="contact.html" class="hover:text-white">在线咨询</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 pt-6 text-xs text-center">
+      © 2026 AutoMax. 本页报价数据为系统测算参考，不构成最终成交价格。
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   数据（自动生成，来源：卡车外贸报价工具）
+   ============================================================ */
+// 自动生成 —— 数据来源: 卡车外贸报价工具 preview-v3.html
+// 生成时间: 2026-10-07 15:09:36
+// 请勿手工修改；工具数据更新后重新运行 extract_data.py
+
+const EMISSION_LABELS = { '国三':'国三/欧三','国四':'国四/欧四','国五':'国五','国六':'国六','京五':'京五' };
+const EMISSION_FACTORS = { '国三':0.72, '国四':0.82, '国五':1.00, '国六':1.18 };
+const TYPE_LABELS = { tractor:'牵引车', dump:'自卸车', cargo:'载货车' };
+const DRIVE_LABELS = { '4x2':'4×2','6x2':'6×2','6x4':'6×4','6x2R':'6×2R','8x4':'8×4' };
+const DRIVE_FACTORS = { '4x2':0.88,'6x2':0.94,'6x4':1.0,'6x2R':0.96,'8x4':1.16 };
+const DRIVE_FREIGHT = { '4x2':0.85,'6x2':0.95,'6x4':1.0,'6x2R':0.97,'8x4':1.2 };
+// 全集 chip 池（按当前型号数据过滤显示）
+const ALL_DRIVES = ['4x2','6x2','6x4','6x2R','8x4'];
+const ALL_EMISSIONS = ['国三','国四','国五','国六','京五'];
+const ALL_HP = [240,260,290,320,340,360,371,380,390,400,420,430,440,460,480,500,520,540,720];
+const ALL_GB_FWD = ['5档','6档','8档','9档','10档','12档','16档'];
+const ALL_RATIO = [2.71,2.85,3.08,3.36,3.7,3.9,4.11,4.38,4.8,5.26,5.73,6.72];
+const ALL_FUEL = ['柴油','天然气','LNG','CNG'];
+const STEERING_FEES = { tractor:10000, dump:12000, cargo:6000 };
+
+const BRANDS = [
+  {key:'sinotruk',name:'中国重汽·豪沃',short:'豪沃',color:'#dc2626'},
+  {key:'shacman',name:'陕汽·德龙',short:'陕汽',color:'#1e3a8a'},
+  {key:'faw',name:'一汽解放',short:'解放',color:'#0f766e'},
+  {key:'foton',name:'福田·欧曼',short:'欧曼',color:'#7c3aed'},
+];
+
+// 每个型号: {label,sub,type,hp,price,drives,emissions,params}
+// drives: 该型号实际支持的驱动形式
+// emissions: 该型号实际支持的排放标准
+const MODELS = {
+sinotruk:{
+  tractor:[
+    {label:'HOWO 371',sub:'豪沃重卡',hp:371,price:155000,drives:['6x4'],emissions:['国三'],fixedHp:true,
+      params:{drv:'6X4',engModel:'WD615.95E',engBrand:'中国重汽',disp:'9.726L',power:'273kW',torque:'1500N·m',emission:'国三',wb:'3200+1350mm',sizeL:'6.78m',sizeW:'2.496m',sizeH:'3.56m',weight:'8.0t',gvw:'25t',tow:'40t',speed:'100km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨',gbModel:'HW19710',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'10档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'650mm',tankCap:'400L',tankMat:'铁质',faDesc:'前轴(7T)',raDesc:'AC16(16T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.8',susp:'钢板弹簧',spring:'9/12',saddle:'50#',tireN:'10个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO 336',sub:'豪沃重卡',hp:336,price:145000,drives:['6x4'],emissions:['国三'],fixedHp:true,
+      params:{drv:'6X4',engModel:'WD615.92E',engBrand:'中国重汽',disp:'9.726L',power:'247kW',torque:'1350N·m',emission:'国三',wb:'3200+1350mm',sizeL:'6.78m',sizeW:'2.496m',sizeH:'3.56m',weight:'7.9t',gvw:'25t',tow:'40t',speed:'100km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨',gbModel:'HW19710',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'10档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'650mm',tankCap:'400L',tankMat:'铁质',faDesc:'前轴(7T)',raDesc:'AC16(16T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.8',susp:'钢板弹簧',spring:'9/12',saddle:'50#',tireN:'10个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO 290',sub:'豪沃重卡',hp:290,price:132000,drives:['6x4','4x2'],emissions:['国三'],fixedHp:true,
+      params:{drv:'6X4',engModel:'WD615.87',engBrand:'中国重汽',disp:'9.726L',power:'213kW',torque:'1100N·m',emission:'国三',wb:'3200+1350mm',sizeL:'6.78m',sizeW:'2.496m',sizeH:'3.56m',weight:'7.8t',gvw:'25t',tow:'40t',speed:'98km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨',gbModel:'HW19710',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'10档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'650mm',tankCap:'400L',tankMat:'铁质',faDesc:'前轴(7T)',raDesc:'AC16(16T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'5.73',susp:'钢板弹簧',spring:'9/12',saddle:'50#',tireN:'10个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO T7H',sub:'豪沃重卡',hp:540,price:220000,drives:['6x4','4x2','6x2','6x2R'],emissions:['国五','国四','国六'],
+      params:{drv:'6X4',engModel:'MC13.54-50',engBrand:'中国重汽',disp:'12.419L',power:'400kW',torque:'2500N·m',emission:'国五',wb:'3400+1400mm',sizeL:'6.985m',sizeW:'2.496m',sizeH:'3.85m',weight:'8.8t',gvw:'25t',tow:'40t',speed:'101km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'HW25716XSTCL',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'16档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'750mm',tankCap:'600L',tankMat:'铝合金',faDesc:'HR7(7T)',raDesc:'MCY13(13T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.7',susp:'少片簧',spring:'3/-',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO TX7',sub:'豪沃重卡',hp:460,price:170000,drives:['6x4','4x2','6x2','6x2R'],emissions:['国五','国六'],
+      params:{drv:'6X4',engModel:'MC11.46-50',engBrand:'中国重汽',disp:'10.518L',power:'338kW',torque:'2100N·m',emission:'国五',wb:'3300+1350mm',sizeL:'6.95m',sizeW:'2.496m',sizeH:'3.85m',weight:'8.5t',gvw:'25t',tow:'40t',speed:'101km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'HW25716XSTCL',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'16档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'750mm',tankCap:'600L',tankMat:'铝合金',faDesc:'HR7(7T)',raDesc:'MCY13(13T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.7',susp:'少片簧',spring:'2/3',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO TH7',sub:'豪沃重卡',hp:480,price:230000,drives:['6x4','4x2','6x2','6x2R'],emissions:['国五','国六'],
+      params:{drv:'6X4',engModel:'MC13.48-50',engBrand:'中国重汽',disp:'12.419L',power:'353kW',torque:'2300N·m',emission:'国五',wb:'3400+1400mm',sizeL:'7.1m',sizeW:'2.55m',sizeH:'3.96m',weight:'8.8t',gvw:'25t',tow:'40t',speed:'101km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'HW27716XAL',gbBrand:'中国重汽',gbShift:'AMT手自一体',gbFwd:'16档',gbRev:'2个',cabin:'高顶平地板',seats:'2人',seatRow:'排半',bunkW:'900mm',tankCap:'1000L',tankMat:'铝合金',faDesc:'7.1T前轴',raDesc:'12T双后桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'2.71',susp:'少片簧',spring:'2/3',saddle:'90#',tireN:'10个',tireSpec:'12R22.5 18PR',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'鼓式'}},
+    {label:'HOWO A7',sub:'豪沃重卡',hp:380,price:180000,drives:['6x4','4x2','6x2','6x2R'],emissions:['国五','国四','国六'],
+      params:{drv:'6X4',engModel:'MC07.38-50',engBrand:'中国重汽',disp:'7.14L',power:'280kW',torque:'1400N·m',emission:'国五',wb:'3200+1350mm',sizeL:'6.78m',sizeW:'2.496m',sizeH:'3.6m',weight:'8.2t',gvw:'25t',tow:'40t',speed:'100km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'HW19712CL',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'700mm',tankCap:'400L',tankMat:'铝合金',faDesc:'HR7(7T)',raDesc:'AC16(16T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.11',susp:'少片簧',spring:'3/4',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO-7',sub:'豪沃重卡',hp:340,price:165000,drives:['6x4'],emissions:['国三','国四'],
+      params:{drv:'6X4',engModel:'WD615.34',engBrand:'中国重汽',disp:'9.726L',power:'250kW',torque:'1250N·m',emission:'国三',wb:'3200+1350mm',sizeL:'6.78m',sizeW:'2.496m',sizeH:'3.56m',weight:'8.0t',gvw:'25t',tow:'40t',speed:'100km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨',gbModel:'HW19710',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'10档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'650mm',tankCap:'400L',tankMat:'铁质',faDesc:'前轴(7T)',raDesc:'AC16(16T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.8',susp:'钢板弹簧',spring:'9/12',saddle:'50#',tireN:'10个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO Max',sub:'豪沃重卡',hp:520,price:210000,drives:['6x4','4x2','6x2','6x2R'],emissions:['国五','国六'],
+      params:{drv:'6X4',engModel:'MC13.52-50',engBrand:'中国重汽',disp:'12.419L',power:'382kW',torque:'2400N·m',emission:'国五',wb:'3300+1400mm',sizeL:'7.05m',sizeW:'2.55m',sizeH:'3.9m',weight:'8.7t',gvw:'25t',tow:'40t',speed:'101km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'HW25716XSTCL',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'16档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'800mm',tankCap:'800L',tankMat:'铝合金',faDesc:'HR7(7T)',raDesc:'MCY13(13T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.36',susp:'少片簧',spring:'2/3',saddle:'90#',tireN:'10个',tireSpec:'12R22.5 18PR',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'鼓式'}},
+    {label:'HOWO KS',sub:'豪沃重卡',hp:720,price:240000,drives:['6x4'],emissions:['国五'],
+      params:{drv:'6X4',engModel:'MC13.72-50',engBrand:'中国重汽',disp:'12.419L',power:'530kW',torque:'3200N·m',emission:'国五',wb:'3400+1400mm',sizeL:'7.2m',sizeW:'2.55m',sizeH:'4.0m',weight:'9.0t',gvw:'25t',tow:'40t',speed:'89km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'1800rpm',techRoute:'共轨+SCR',gbModel:'HW27716XAL',gbBrand:'中国重汽',gbShift:'AMT手自一体',gbFwd:'16档',gbRev:'2个',cabin:'高顶平地板',seats:'2人',seatRow:'排半',bunkW:'950mm',tankCap:'1200L',tankMat:'铝合金',faDesc:'7.5T前轴',raDesc:'13T双后桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'2.64',susp:'气囊悬架',spring:'2/3',saddle:'90#',tireN:'10个',tireSpec:'12R22.5 18PR',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'盘式'}},
+    {label:'HOWO C7H',sub:'豪沃重卡',hp:440,price:195000,drives:['6x4'],emissions:['国五','国四'],
+      params:{drv:'6X4',engModel:'MC11.44-50',engBrand:'中国重汽',disp:'10.518L',power:'324kW',torque:'2100N·m',emission:'国五',wb:'3300+1350mm',sizeL:'6.9m',sizeW:'2.496m',sizeH:'3.8m',weight:'8.5t',gvw:'25t',tow:'40t',speed:'101km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'HW19712CL',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'750mm',tankCap:'600L',tankMat:'铝合金',faDesc:'HR7(7T)',raDesc:'AC16(16T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.9',susp:'少片簧',spring:'3/4',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO NX',sub:'豪沃重卡',hp:400,price:185000,drives:['6x4','4x2'],emissions:['国五'],
+      params:{drv:'6X4',engModel:'MC07.40-50',engBrand:'中国重汽',disp:'7.14L',power:'294kW',torque:'1500N·m',emission:'国五',wb:'3225+1350mm',sizeL:'6.89m',sizeW:'2.496m',sizeH:'3.8m',weight:'8.4t',gvw:'25t',tow:'40t',speed:'101km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'HW19712CL',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'700mm',tankCap:'400L',tankMat:'铝合金',faDesc:'HR7(7T)',raDesc:'AC16(16T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.11',susp:'少片簧',spring:'3/4',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ],
+  dump:[
+    {label:'HOWO 371 自卸',sub:'豪沃重卡',hp:371,price:235000,drives:['8x4','6x4'],emissions:['国三'],fixedHp:true,
+      params:{drv:'8X4',engModel:'WD615.95E',engBrand:'中国重汽',disp:'9.726L',power:'273kW',torque:'1500N·m',emission:'国三',wb:'3200+1350+1350mm',sizeL:'8.4m',sizeW:'2.55m',sizeH:'3.5m',weight:'12.0t',gvw:'31t',speed:'80km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨',gbModel:'HW19710',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'10档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'300L',tankMat:'铁质',faDesc:'双前轴(7+7T)',raDesc:'AC16双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.73',susp:'钢板弹簧',spring:'10/12',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO 336 自卸',sub:'豪沃重卡',hp:336,price:220000,drives:['6x4'],emissions:['国三'],fixedHp:true,
+      params:{drv:'6X4',engModel:'WD615.92E',engBrand:'中国重汽',disp:'9.726L',power:'247kW',torque:'1350N·m',emission:'国三',wb:'3400+1400mm',sizeL:'7.8m',sizeW:'2.55m',sizeH:'3.45m',weight:'10.5t',gvw:'25t',speed:'78km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨',gbModel:'HW19710',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'10档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'300L',tankMat:'铁质',faDesc:'前轴(9T)',raDesc:'AC16双后桥',faLoad:'9000kg',raLoad:'16000kg',ratio:'6.72',susp:'钢板弹簧',spring:'10/12',tireN:'10个',tireSpec:'12.00R24',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO T7H 自卸',sub:'豪沃重卡',hp:400,price:260000,drives:['8x4','6x4'],emissions:['国五'],
+      params:{drv:'8X4',engModel:'MC11.40-50',engBrand:'中国重汽',disp:'10.518L',power:'294kW',torque:'1900N·m',emission:'国五',wb:'3200+1350+1350mm',sizeL:'8.5m',sizeW:'2.55m',sizeH:'3.5m',weight:'12t',gvw:'31t',speed:'85km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'HW19712CL',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'350L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'AC16双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.73',susp:'钢板弹簧',spring:'8/10',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO TX7 自卸',sub:'豪沃重卡',hp:340,price:240000,drives:['8x4','6x4'],emissions:['国五'],
+      params:{drv:'8X4',engModel:'MC07.34-50',engBrand:'中国重汽',disp:'7.14L',power:'250kW',torque:'1300N·m',emission:'国五',wb:'3100+1300+1350mm',sizeL:'8.2m',sizeW:'2.55m',sizeH:'3.45m',weight:'11.5t',gvw:'31t',speed:'82km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'HW19710',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'10档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'300L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'AC16双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.73',susp:'钢板弹簧',spring:'8/10',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO A7 自卸',sub:'豪沃重卡',hp:380,price:230000,drives:['8x4','6x4'],emissions:['国五'],
+      params:{drv:'8X4',engModel:'MC07.38-50',engBrand:'中国重汽',disp:'7.14L',power:'280kW',torque:'1400N·m',emission:'国五',wb:'3200+1350+1350mm',sizeL:'8.4m',sizeW:'2.55m',sizeH:'3.5m',weight:'11.8t',gvw:'31t',speed:'84km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'HW19712CL',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'350L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'AC16双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.26',susp:'钢板弹簧',spring:'8/10',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO-7 自卸',sub:'豪沃重卡',hp:340,price:210000,drives:['8x4','6x4'],emissions:['国三','国四'],
+      params:{drv:'8X4',engModel:'WD615.34',engBrand:'中国重汽',disp:'9.726L',power:'250kW',torque:'1250N·m',emission:'国三',wb:'3100+1300+1350mm',sizeL:'8.1m',sizeW:'2.55m',sizeH:'3.45m',weight:'11.2t',gvw:'31t',speed:'80km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨',gbModel:'HW19710',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'10档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'300L',tankMat:'铁质',faDesc:'双前轴(7+7T)',raDesc:'AC16双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.73',susp:'钢板弹簧',spring:'10/12',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO T6G 矿山霸王',sub:'豪沃重卡',hp:350,price:200000,drives:['6x4'],emissions:['国四'],
+      params:{drv:'6X4',engModel:'WD615.34E',engBrand:'中国重汽',disp:'9.726L',power:'257kW',torque:'1300N·m',emission:'国四',wb:'3400+1400mm',sizeL:'7.8m',sizeW:'2.55m',sizeH:'3.5m',weight:'10t',gvw:'25t',speed:'75km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨+SCR',gbModel:'HW19710',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'10档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'300L',tankMat:'铁质',faDesc:'前轴(9T)',raDesc:'AC16双后桥',faLoad:'9000kg',raLoad:'16000kg',ratio:'6.72',susp:'钢板弹簧',spring:'10/12',tireN:'10个',tireSpec:'12.00R24',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ],
+  cargo:[
+    {label:'HOWO 悍将',sub:'HOWO轻卡',hp:129,price:55000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'MC05.18-50',engBrand:'中国重汽',disp:'4.58L',power:'136kW',torque:'650N·m',emission:'国五',wb:'3360mm',sizeL:'5.995m',sizeW:'2.25m',sizeH:'2.4m',weight:'2.6t',gvw:'4.495t',speed:'95km/h',origin:'山东济南',cyl:4,cylArr:'直列',ratedRpm:'2500rpm',techRoute:'共轨+SCR',gbModel:'HW51710',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'6档',gbRev:'1个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'120L',tankMat:'铁质',faDesc:'前轴(3T)',raDesc:'后桥(7T)',faLoad:'1800kg',raLoad:'2700kg',ratio:'4.875',susp:'钢板弹簧',spring:'5/7',tireN:'6个',tireSpec:'7.50R16',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO 统帅',sub:'HOWO轻卡',hp:156,price:80000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'MC05.24-50',engBrand:'中国重汽',disp:'4.58L',power:'177kW',torque:'900N·m',emission:'国五',wb:'3800mm',sizeL:'6.8m',sizeW:'2.35m',sizeH:'2.55m',weight:'3.8t',gvw:'11t',speed:'95km/h',origin:'山东济南',cyl:4,cylArr:'直列',ratedRpm:'2500rpm',techRoute:'共轨+SCR',gbModel:'HW90510',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'6档',gbRev:'1个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'180L',tankMat:'铝合金',faDesc:'前轴(4T)',raDesc:'后桥(11.5T)',faLoad:'3500kg',raLoad:'7500kg',ratio:'4.444',susp:'钢板弹簧',spring:'6/8',tireN:'6个',tireSpec:'8.25R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'HOWO G5X 中卡',sub:'HOWO轻卡',hp:240,price:120000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'MC07.24-50',engBrand:'中国重汽',disp:'7.14L',power:'177kW',torque:'950N·m',emission:'国五',wb:'4500mm',sizeL:'8.0m',sizeW:'2.496m',sizeH:'2.8m',weight:'5.2t',gvw:'16t',speed:'100km/h',origin:'山东济南',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'HW19712CL',gbBrand:'中国重汽',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'250L',tankMat:'铝合金',faDesc:'前轴(6T)',raDesc:'后桥(13T)',faLoad:'5500kg',raLoad:'10500kg',ratio:'3.9',susp:'少片簧',spring:'4/6',tireN:'6个',tireSpec:'10.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ]
+},
+
+shacman:{
+  tractor:[
+    {label:'德龙X3000',sub:'陕汽德龙',hp:460,price:210000,drives:['6x4','4x2'],emissions:['国五','国四'],
+      params:{drv:'6X4',engModel:'WP12.460E50',engBrand:'潍柴',disp:'11.596L',power:'338kW',torque:'2110N·m',emission:'国五',wb:'3175+1400mm',sizeL:'7.45m',sizeW:'2.55m',sizeH:'3.98m',weight:'8.8t',gvw:'25t',tow:'40t',speed:'80km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特S12MO',gbBrand:'法士特',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'高顶',seats:'2人',seatRow:'排半',bunkW:'800mm',tankCap:'400L',tankMat:'铝合金',faDesc:'MAN 5.5T免维护',raDesc:'11.5T MAN单级',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.7',susp:'前后少片簧',spring:'2/3',saddle:'JOST 90#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'德龙X5000',sub:'陕汽德龙',hp:500,price:240000,drives:['6x4','4x2'],emissions:['国五'],
+      params:{drv:'6X4',engModel:'WP13.500E50',engBrand:'潍柴',disp:'12.54L',power:'368kW',torque:'2400N·m',emission:'国五',wb:'3300+1400mm',sizeL:'7.1m',sizeW:'2.55m',sizeH:'3.98m',weight:'8.8t',gvw:'25t',tow:'40t',speed:'89km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特S16MO',gbBrand:'法士特',gbShift:'手动',gbFwd:'16档',gbRev:'2个',cabin:'高顶',seats:'2人',seatRow:'排半',bunkW:'850mm',tankCap:'800L',tankMat:'铝合金',faDesc:'MAN 5.5T免维护',raDesc:'13T MAN单级',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.364',susp:'前后少片簧',spring:'2/3',saddle:'JOST 90#',tireN:'10个',tireSpec:'12R22.5 18PR',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'鼓式'}},
+    {label:'德龙X6000',sub:'陕汽德龙',hp:620,price:290000,drives:['6x4'],emissions:['国六'],
+      params:{drv:'6X4',engModel:'WP14T620E62',engBrand:'潍柴',disp:'13.5L',power:'456kW',torque:'2800N·m',emission:'国六',wb:'3400+1400mm',sizeL:'7.2m',sizeW:'2.55m',sizeH:'4.0m',weight:'9.2t',gvw:'25t',tow:'40t',speed:'89km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'1800rpm',techRoute:'共轨+SCR',gbModel:'法士特S16MO',gbBrand:'法士特',gbShift:'AMT手自一体',gbFwd:'16档',gbRev:'2个',cabin:'高顶平地板',seats:'2人',seatRow:'排半',bunkW:'950mm',tankCap:'1200L',tankMat:'铝合金',faDesc:'MAN 7T免维护',raDesc:'16T MAN双级',faLoad:'7000kg',raLoad:'18000kg',ratio:'2.846',susp:'气囊悬架',spring:'2/3',saddle:'JOST 90#',tireN:'10个',tireSpec:'12R22.5 18PR',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'盘式'}},
+    {label:'德龙F3000',sub:'陕汽德龙',hp:380,price:165000,drives:['6x4','4x2'],emissions:['国五','国四'],
+      params:{drv:'6X4',engModel:'WP10.380E50',engBrand:'潍柴',disp:'9.726L',power:'280kW',torque:'1460N·m',emission:'国五',wb:'3225+1350mm',sizeL:'6.85m',sizeW:'2.49m',sizeH:'3.6m',weight:'8.4t',gvw:'25t',tow:'40t',speed:'95km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨+SCR',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'650mm',tankCap:'350L',tankMat:'铝合金',faDesc:'MAN 5.5T',raDesc:'AC16(16T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.444',susp:'钢板弹簧',spring:'9/12',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'德龙F2000',sub:'陕汽德龙',hp:340,price:145000,drives:['6x4'],emissions:['国三','国四'],
+      params:{drv:'6X4',engModel:'WP10.340',engBrand:'潍柴',disp:'9.726L',power:'250kW',torque:'1250N·m',emission:'国三',wb:'3225+1350mm',sizeL:'6.8m',sizeW:'2.49m',sizeH:'3.55m',weight:'8.2t',gvw:'25t',tow:'40t',speed:'95km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'650mm',tankCap:'350L',tankMat:'铁质',faDesc:'MAN 5.5T',raDesc:'AC16(16T)',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.444',susp:'钢板弹簧',spring:'9/12',saddle:'50#',tireN:'10个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'德龙新M3000',sub:'陕汽德龙',hp:380,price:175000,drives:['6x4','4x2'],emissions:['国五'],
+      params:{drv:'6X4',engModel:'WP10.380E50',engBrand:'潍柴',disp:'9.726L',power:'280kW',torque:'1460N·m',emission:'国五',wb:'3175+1400mm',sizeL:'6.95m',sizeW:'2.49m',sizeH:'3.6m',weight:'8.5t',gvw:'25t',tow:'40t',speed:'98km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨+SCR',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'700mm',tankCap:'400L',tankMat:'铝合金',faDesc:'MAN 5.5T',raDesc:'11.5T MAN单级',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.11',susp:'钢板弹簧',spring:'3/4',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ],
+  dump:[
+    {label:'德龙X3000 自卸',sub:'陕汽德龙',hp:380,price:250000,drives:['8x4','6x4'],emissions:['国五','国四'],
+      params:{drv:'8X4',engModel:'WP12.380E50',engBrand:'潍柴',disp:'11.596L',power:'280kW',torque:'1700N·m',emission:'国五',wb:'3200+1350+1400mm',sizeL:'8.8m',sizeW:'2.55m',sizeH:'3.5m',weight:'12.5t',gvw:'31t',speed:'78km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨+SCR',gbModel:'法士特12JSD200TA',gbBrand:'法士特',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'350L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'AC16双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.262',susp:'钢板弹簧',spring:'8/10',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'德龙新M3000 自卸',sub:'陕汽德龙',hp:340,price:220000,drives:['8x4','6x4'],emissions:['国五'],
+      params:{drv:'8X4',engModel:'WP10.340E50',engBrand:'潍柴',disp:'9.726L',power:'250kW',torque:'1300N·m',emission:'国五',wb:'3100+1300+1350mm',sizeL:'8.5m',sizeW:'2.55m',sizeH:'3.45m',weight:'12.0t',gvw:'31t',speed:'75km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨+SCR',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'300L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'AC16双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.73',susp:'钢板弹簧',spring:'8/10',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'德龙F3000 自卸',sub:'陕汽德龙',hp:380,price:195000,drives:['8x4','6x4'],emissions:['国四','国三'],
+      params:{drv:'8X4',engModel:'WP12.380E40',engBrand:'潍柴',disp:'11.596L',power:'280kW',torque:'1700N·m',emission:'国四',wb:'3200+1350+1400mm',sizeL:'8.7m',sizeW:'2.55m',sizeH:'3.5m',weight:'12.2t',gvw:'31t',speed:'76km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'2200rpm',techRoute:'共轨+SCR',gbModel:'法士特12JSD200TA',gbBrand:'法士特',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'350L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'AC16双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.262',susp:'钢板弹簧',spring:'10/12',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'德龙L3000 自卸',sub:'陕汽德龙',hp:270,price:165000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'WP6.270E50',engBrand:'潍柴',disp:'6.75L',power:'199kW',torque:'1000N·m',emission:'国五',wb:'3800mm',sizeL:'6.8m',sizeW:'2.49m',sizeH:'3.2m',weight:'6.5t',gvw:'16t',speed:'85km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'2400rpm',techRoute:'共轨+SCR',gbModel:'法士特8JS118',gbBrand:'法士特',gbShift:'手动',gbFwd:'8档',gbRev:'1个',cabin:'平顶',seats:'3人',seatRow:'排半',tankCap:'200L',tankMat:'铝合金',faDesc:'前轴(5T)',raDesc:'AC11(11T)',faLoad:'4500kg',raLoad:'11500kg',ratio:'5.286',susp:'钢板弹簧',spring:'6/8',tireN:'6个',tireSpec:'10.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ],
+  cargo:[
+    {label:'德龙L3000 载货',sub:'陕汽德龙',hp:220,price:135000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'WP6.220E50',engBrand:'潍柴',disp:'6.75L',power:'162kW',torque:'800N·m',emission:'国五',wb:'4500mm',sizeL:'7.5m',sizeW:'2.49m',sizeH:'2.8m',weight:'5.0t',gvw:'12t',speed:'95km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'2400rpm',techRoute:'共轨+SCR',gbModel:'法士特8JS85E',gbBrand:'法士特',gbShift:'手动',gbFwd:'8档',gbRev:'1个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'200L',tankMat:'铝合金',faDesc:'前轴(5T)',raDesc:'后桥(11.5T)',faLoad:'4500kg',raLoad:'7500kg',ratio:'4.444',susp:'少片簧',spring:'4/6',tireN:'6个',tireSpec:'9.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'德龙新M3000 载货',sub:'陕汽德龙',hp:300,price:155000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'WP7.300E50',engBrand:'潍柴',disp:'7.47L',power:'220kW',torque:'1100N·m',emission:'国五',wb:'5000mm',sizeL:'8.2m',sizeW:'2.49m',sizeH:'2.9m',weight:'6.0t',gvw:'16t',speed:'98km/h',origin:'陕西西安',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'法士特8JS118',gbBrand:'法士特',gbShift:'手动',gbFwd:'8档',gbRev:'1个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'250L',tankMat:'铝合金',faDesc:'前轴(6T)',raDesc:'后桥(13T)',faLoad:'5500kg',raLoad:'10500kg',ratio:'4.11',susp:'少片簧',spring:'4/6',tireN:'6个',tireSpec:'10.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ]
+},
+
+faw:{
+  tractor:[
+    {label:'解放J7',sub:'一汽解放',hp:560,price:310000,drives:['6x4'],emissions:['国六'],
+      params:{drv:'6X4',engModel:'CA6DM3-56E6',engBrand:'锡柴',disp:'12.5L',power:'412kW',torque:'2600N·m',emission:'国六',wb:'3300+1350mm',sizeL:'7.11m',sizeW:'2.55m',sizeH:'3.98m',weight:'8.8t',gvw:'25t',tow:'40t',speed:'89km/h',origin:'吉林长春',cyl:6,cylArr:'直列',ratedRpm:'1800rpm',techRoute:'共轨+SCR',gbModel:'CA12TAX260M',gbBrand:'一汽解放',gbShift:'AMT手自一体',gbFwd:'12档',gbRev:'2个',cabin:'高顶平地板',seats:'2人',seatRow:'排半',bunkW:'900mm',tankCap:'1000L',tankMat:'铝合金',faDesc:'新F7N',raDesc:'435冲焊桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.417',susp:'气囊悬架',spring:'2/-',saddle:'90#',tireN:'10个',tireSpec:'12R22.5 18PR',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'盘式'}},
+    {label:'解放J6P',sub:'一汽解放',hp:420,price:200000,drives:['6x4','4x2'],emissions:['国五','国四','国三'],
+      params:{drv:'6X4',engModel:'CA6DM2-42E51',engBrand:'锡柴',disp:'11.04L',power:'309kW',torque:'1900N·m',emission:'国五',wb:'3450+1350mm',sizeL:'7.16m',sizeW:'2.495m',sizeH:'3.56m',weight:'8.86t',gvw:'25t',tow:'40t',speed:'125km/h',origin:'吉林长春',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特12JSD180A',gbBrand:'法士特',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'850mm',tankCap:'600L',tankMat:'铝合金',faDesc:'前轴(7T)',raDesc:'并装双轴',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.727',susp:'钢板弹簧',spring:'10/11',saddle:'50#',tireN:'10个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'解放J6P 350',sub:'一汽解放',hp:350,price:175000,drives:['6x4','4x2'],emissions:['国四','国三'],
+      params:{drv:'6X4',engModel:'CA6DL2-35E4',engBrand:'锡柴',disp:'8.6L',power:'257kW',torque:'1400N·m',emission:'国四',wb:'3450+1350mm',sizeL:'7.16m',sizeW:'2.495m',sizeH:'3.56m',weight:'8.5t',gvw:'25t',tow:'40t',speed:'110km/h',origin:'吉林长春',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'750mm',tankCap:'500L',tankMat:'铝合金',faDesc:'前轴(7T)',raDesc:'435冲焊桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.111',susp:'钢板弹簧',spring:'9/11',saddle:'50#',tireN:'10个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'解放J6V',sub:'一汽解放',hp:500,price:240000,drives:['6x4'],emissions:['国六'],
+      params:{drv:'6X4',engModel:'CA6DM3-50E6',engBrand:'锡柴',disp:'12.5L',power:'368kW',torque:'2300N·m',emission:'国六',wb:'3300+1350mm',sizeL:'7.1m',sizeW:'2.55m',sizeH:'3.9m',weight:'8.8t',gvw:'25t',tow:'40t',speed:'89km/h',origin:'吉林长春',cyl:6,cylArr:'直列',ratedRpm:'1800rpm',techRoute:'共轨+SCR',gbModel:'CA12TAX230M',gbBrand:'一汽解放',gbShift:'AMT手自一体',gbFwd:'12档',gbRev:'2个',cabin:'高顶平地板',seats:'2人',seatRow:'排半',bunkW:'850mm',tankCap:'800L',tankMat:'铝合金',faDesc:'新F7N',raDesc:'435冲焊桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.583',susp:'少片簧',spring:'2/-',saddle:'90#',tireN:'10个',tireSpec:'12R22.5 18PR',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'鼓式'}},
+    {label:'解放JH6',sub:'一汽解放',hp:460,price:195000,drives:['6x4','4x2'],emissions:['国五'],
+      params:{drv:'6X4',engModel:'CA6DM2-46E51',engBrand:'锡柴',disp:'11.05L',power:'338kW',torque:'2100N·m',emission:'国五',wb:'3300+1350mm',sizeL:'7.1m',sizeW:'2.55m',sizeH:'3.85m',weight:'8.7t',gvw:'25t',tow:'40t',speed:'100km/h',origin:'吉林长春',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特12JSD200TA',gbBrand:'法士特',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'800mm',tankCap:'800L',tankMat:'铝合金',faDesc:'新F7N',raDesc:'435冲焊桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.727',susp:'少片簧',spring:'3/4',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'解放悍V',sub:'一汽解放',hp:350,price:160000,drives:['6x4','4x2'],emissions:['国五','国四'],
+      params:{drv:'6X4',engModel:'CA6DL2-35E5',engBrand:'锡柴',disp:'8.6L',power:'257kW',torque:'1400N·m',emission:'国五',wb:'3200+1350mm',sizeL:'6.8m',sizeW:'2.49m',sizeH:'3.5m',weight:'8.3t',gvw:'25t',tow:'40t',speed:'98km/h',origin:'吉林长春',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'700mm',tankCap:'400L',tankMat:'铝合金',faDesc:'前轴(7T)',raDesc:'435冲焊桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.111',susp:'钢板弹簧',spring:'9/11',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ],
+  dump:[
+    {label:'解放J6P 自卸',sub:'一汽解放',hp:420,price:240000,drives:['8x4','6x4'],emissions:['国五','国四'],
+      params:{drv:'8X4',engModel:'CA6DM2-42E51',engBrand:'锡柴',disp:'11.05L',power:'309kW',torque:'2000N·m',emission:'国五',wb:'3200+1350+1400mm',sizeL:'8.5m',sizeW:'2.55m',sizeH:'3.5m',weight:'12.0t',gvw:'31t',speed:'80km/h',origin:'吉林长春',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特12JSD200TA',gbBrand:'法士特',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'350L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'435双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.286',susp:'钢板弹簧',spring:'10/12',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'解放JH6 自卸',sub:'一汽解放',hp:460,price:250000,drives:['8x4'],emissions:['国五'],
+      params:{drv:'8X4',engModel:'CA6DM2-46E51',engBrand:'锡柴',disp:'11.05L',power:'338kW',torque:'2100N·m',emission:'国五',wb:'3300+1350+1400mm',sizeL:'8.7m',sizeW:'2.55m',sizeH:'3.55m',weight:'12.5t',gvw:'31t',speed:'82km/h',origin:'吉林长春',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特12JSD200TA',gbBrand:'法士特',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'400L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'435双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.286',susp:'钢板弹簧',spring:'10/12',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'解放悍V 自卸',sub:'一汽解放',hp:350,price:210000,drives:['8x4','6x4'],emissions:['国五','国四'],
+      params:{drv:'8X4',engModel:'CA6DL2-35E5',engBrand:'锡柴',disp:'8.6L',power:'257kW',torque:'1400N·m',emission:'国五',wb:'3100+1300+1350mm',sizeL:'8.3m',sizeW:'2.55m',sizeH:'3.45m',weight:'11.5t',gvw:'31t',speed:'78km/h',origin:'吉林长春',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'300L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'435双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.73',susp:'钢板弹簧',spring:'10/12',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ],
+  cargo:[
+    {label:'解放J6L 载货',sub:'一汽解放',hp:260,price:120000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'CA4DK1-26E5',engBrand:'锡柴',disp:'4.8L',power:'191kW',torque:'900N·m',emission:'国五',wb:'5000mm',sizeL:'8.0m',sizeW:'2.49m',sizeH:'2.8m',weight:'5.5t',gvw:'12t',speed:'95km/h',origin:'吉林长春',cyl:4,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'CA8TAX090M',gbBrand:'一汽解放',gbShift:'手动',gbFwd:'8档',gbRev:'1个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'200L',tankMat:'铝合金',faDesc:'前轴(5T)',raDesc:'后桥(11T)',faLoad:'4500kg',raLoad:'7500kg',ratio:'4.444',susp:'少片簧',spring:'4/6',tireN:'6个',tireSpec:'9.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'解放J6P 载货',sub:'一汽解放',hp:350,price:145000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'CA6DL2-35E5',engBrand:'锡柴',disp:'8.6L',power:'257kW',torque:'1400N·m',emission:'国五',wb:'5200mm',sizeL:'8.5m',sizeW:'2.49m',sizeH:'2.9m',weight:'6.5t',gvw:'18t',speed:'98km/h',origin:'吉林长春',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'250L',tankMat:'铝合金',faDesc:'前轴(6T)',raDesc:'后桥(13T)',faLoad:'6000kg',raLoad:'12000kg',ratio:'4.111',susp:'少片簧',spring:'4/6',tireN:'6个',tireSpec:'10.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'解放龙V 载货',sub:'一汽解放',hp:200,price:100000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'CA4DH2-20E5',engBrand:'锡柴',disp:'4.8L',power:'147kW',torque:'700N·m',emission:'国五',wb:'4200mm',sizeL:'7.2m',sizeW:'2.35m',sizeH:'2.6m',weight:'4.5t',gvw:'9t',speed:'90km/h',origin:'吉林长春',cyl:4,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'CA6TAX070M',gbBrand:'一汽解放',gbShift:'手动',gbFwd:'6档',gbRev:'1个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'150L',tankMat:'铝合金',faDesc:'前轴(4T)',raDesc:'后桥(9T)',faLoad:'3500kg',raLoad:'5500kg',ratio:'4.875',susp:'钢板弹簧',spring:'5/7',tireN:'6个',tireSpec:'8.25R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ]
+},
+
+foton:{
+  tractor:[
+    {label:'欧曼EST',sub:'福田欧曼',hp:510,price:230000,drives:['6x4','4x2'],emissions:['国五','国六'],
+      params:{drv:'6X4',engModel:'ISGe5-510',engBrand:'福田康明斯',disp:'12L',power:'375kW',torque:'2300N·m',emission:'国五',wb:'3300+1350mm',sizeL:'7.1m',sizeW:'2.55m',sizeH:'3.85m',weight:'8.8t',gvw:'25t',tow:'40t',speed:'89km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'采埃孚16S2230TO',gbBrand:'采埃孚',gbShift:'手动',gbFwd:'16档',gbRev:'2个',cabin:'高顶平地板',seats:'2人',seatRow:'排半',bunkW:'850mm',tankCap:'800L',tankMat:'铝合金',faDesc:'前轴(7T)',raDesc:'13T双后桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.083',susp:'少片簧',spring:'2/3',saddle:'90#',tireN:'10个',tireSpec:'12R22.5 18PR',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'鼓式'}},
+    {label:'欧曼GTL',sub:'福田欧曼',hp:460,price:175000,drives:['6x4','4x2'],emissions:['国五'],
+      params:{drv:'6X4',engModel:'ISLe5-460',engBrand:'福田康明斯',disp:'8.9L',power:'338kW',torque:'2000N·m',emission:'国五',wb:'3300+1350mm',sizeL:'7.05m',sizeW:'2.49m',sizeH:'3.6m',weight:'8.8t',gvw:'25t',tow:'40t',speed:'90km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特12JSD200TA',gbBrand:'法士特',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'800mm',tankCap:'600L',tankMat:'铝合金',faDesc:'前轴(7T)',raDesc:'13T双后桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'3.727',susp:'少片簧',spring:'3/4',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'欧曼银河',sub:'福田欧曼',hp:680,price:280000,drives:['6x4'],emissions:['国五','国六'],
+      params:{drv:'6X4',engModel:'ISGe5-680',engBrand:'福田康明斯',disp:'14L',power:'500kW',torque:'3200N·m',emission:'国五',wb:'3400+1400mm',sizeL:'7.25m',sizeW:'2.55m',sizeH:'4.0m',weight:'9.0t',gvw:'25t',tow:'40t',speed:'89km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'1800rpm',techRoute:'共轨+SCR',gbModel:'采埃孚TraXon',gbBrand:'采埃孚',gbShift:'AMT手自一体',gbFwd:'16档',gbRev:'2个',cabin:'高顶平地板',seats:'2人',seatRow:'排半',bunkW:'950mm',tankCap:'1200L',tankMat:'铝合金',faDesc:'7T前轴',raDesc:'16T双后桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'2.643',susp:'气囊悬架',spring:'2/3',saddle:'90#',tireN:'10个',tireSpec:'12R22.5 18PR',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'盘式'}},
+    {label:'欧曼雄狮',sub:'福田欧曼',hp:580,price:265000,drives:['6x4'],emissions:['国六'],
+      params:{drv:'6X4',engModel:'ISGe6-580',engBrand:'福田康明斯',disp:'14L',power:'427kW',torque:'2700N·m',emission:'国六',wb:'3400+1400mm',sizeL:'7.2m',sizeW:'2.55m',sizeH:'3.98m',weight:'9.0t',gvw:'25t',tow:'40t',speed:'89km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'1800rpm',techRoute:'共轨+SCR',gbModel:'采埃孚TraXon',gbBrand:'采埃孚',gbShift:'AMT手自一体',gbFwd:'16档',gbRev:'2个',cabin:'高顶平地板',seats:'2人',seatRow:'排半',bunkW:'920mm',tankCap:'1000L',tankMat:'铝合金',faDesc:'7T前轴',raDesc:'16T双后桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'2.846',susp:'气囊悬架',spring:'2/3',saddle:'90#',tireN:'10个',tireSpec:'12R22.5 18PR',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'盘式'}},
+    {label:'欧曼ETX',sub:'福田欧曼',hp:400,price:155000,drives:['6x4','4x2'],emissions:['国五','国四'],
+      params:{drv:'6X4',engModel:'ISLe5-400',engBrand:'福田康明斯',disp:'8.9L',power:'294kW',torque:'1800N·m',emission:'国五',wb:'3200+1350mm',sizeL:'6.9m',sizeW:'2.49m',sizeH:'3.5m',weight:'8.5t',gvw:'25t',tow:'40t',speed:'92km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'高顶',seats:'3人',seatRow:'排半',bunkW:'700mm',tankCap:'400L',tankMat:'铝合金',faDesc:'前轴(7T)',raDesc:'13T双后桥',faLoad:'7000kg',raLoad:'18000kg',ratio:'4.111',susp:'钢板弹簧',spring:'3/4',saddle:'50#',tireN:'10个',tireSpec:'12R22.5',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ],
+  dump:[
+    {label:'欧曼EST 自卸',sub:'福田欧曼',hp:490,price:260000,drives:['8x4','6x4'],emissions:['国五'],
+      params:{drv:'8X4',engModel:'ISGe5-490',engBrand:'福田康明斯',disp:'12L',power:'360kW',torque:'2300N·m',emission:'国五',wb:'3300+1350+1400mm',sizeL:'8.8m',sizeW:'2.55m',sizeH:'3.55m',weight:'12.5t',gvw:'31t',speed:'82km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特12JSD200TA',gbBrand:'法士特',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'400L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'16T双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.262',susp:'钢板弹簧',spring:'8/10',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'盘式',rBrake:'鼓式'}},
+    {label:'欧曼GTL 自卸',sub:'福田欧曼',hp:430,price:225000,drives:['8x4','6x4'],emissions:['国五'],
+      params:{drv:'8X4',engModel:'ISLe5-430',engBrand:'福田康明斯',disp:'8.9L',power:'316kW',torque:'1900N·m',emission:'国五',wb:'3200+1350+1400mm',sizeL:'8.5m',sizeW:'2.55m',sizeH:'3.5m',weight:'12.0t',gvw:'31t',speed:'80km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特12JSD200TA',gbBrand:'法士特',gbShift:'手动',gbFwd:'12档',gbRev:'2个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'350L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'16T双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.262',susp:'钢板弹簧',spring:'8/10',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'欧曼ETX 自卸',sub:'福田欧曼',hp:400,price:200000,drives:['8x4'],emissions:['国五'],
+      params:{drv:'8X4',engModel:'ISLe5-400',engBrand:'福田康明斯',disp:'8.9L',power:'294kW',torque:'1800N·m',emission:'国五',wb:'3100+1300+1350mm',sizeL:'8.3m',sizeW:'2.55m',sizeH:'3.45m',weight:'11.5t',gvw:'31t',speed:'78km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'平顶',seats:'2人',seatRow:'排半',tankCap:'300L',tankMat:'铝合金',faDesc:'双前轴(7+7T)',raDesc:'16T双后桥',faLoad:'13000kg',raLoad:'18000kg',ratio:'5.73',susp:'钢板弹簧',spring:'8/10',tireN:'12个',tireSpec:'12.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ],
+  cargo:[
+    {label:'欧曼EST 载货',sub:'福田欧曼',hp:360,price:170000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'ISLe5-360',engBrand:'福田康明斯',disp:'8.9L',power:'265kW',torque:'1600N·m',emission:'国五',wb:'5200mm',sizeL:'8.5m',sizeW:'2.49m',sizeH:'2.95m',weight:'6.5t',gvw:'18t',speed:'98km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特9JS119',gbBrand:'法士特',gbShift:'手动',gbFwd:'9档',gbRev:'1个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'300L',tankMat:'铝合金',faDesc:'前轴(6T)',raDesc:'后桥(13T)',faLoad:'6000kg',raLoad:'12000kg',ratio:'4.111',susp:'少片簧',spring:'4/6',tireN:'6个',tireSpec:'10.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'欧曼GTL 载货',sub:'福田欧曼',hp:360,price:145000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'ISLe5-360',engBrand:'福田康明斯',disp:'8.9L',power:'265kW',torque:'1600N·m',emission:'国五',wb:'5000mm',sizeL:'8.2m',sizeW:'2.49m',sizeH:'2.9m',weight:'6.0t',gvw:'16t',speed:'95km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'1900rpm',techRoute:'共轨+SCR',gbModel:'法士特8JS118',gbBrand:'法士特',gbShift:'手动',gbFwd:'8档',gbRev:'1个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'250L',tankMat:'铝合金',faDesc:'前轴(6T)',raDesc:'后桥(13T)',faLoad:'5500kg',raLoad:'10500kg',ratio:'4.111',susp:'少片簧',spring:'4/6',tireN:'6个',tireSpec:'10.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+    {label:'欧曼行星',sub:'福田欧曼',hp:300,price:105000,drives:['4x2'],emissions:['国五'],
+      params:{drv:'4X2',engModel:'ISF5.9-300',engBrand:'福田康明斯',disp:'5.9L',power:'220kW',torque:'1100N·m',emission:'国五',wb:'5000mm',sizeL:'8.2m',sizeW:'2.49m',sizeH:'2.9m',weight:'6.0t',gvw:'16t',speed:'98km/h',origin:'北京',cyl:6,cylArr:'直列',ratedRpm:'2300rpm',techRoute:'共轨+SCR',gbModel:'法士特8JS118',gbBrand:'法士特',gbShift:'手动',gbFwd:'8档',gbRev:'1个',cabin:'排半',seats:'3人',seatRow:'排半',tankCap:'250L',tankMat:'铝合金',faDesc:'前轴(6T)',raDesc:'后桥(13T)',faLoad:'5500kg',raLoad:'10500kg',ratio:'4.111',susp:'少片簧',spring:'4/6',tireN:'6个',tireSpec:'10.00R20',brakeType:'气刹',parkBrake:'断气刹',fBrake:'鼓式',rBrake:'鼓式'}},
+  ]
+}
+};
+
+// 市场数据（简化版，沿用原项目）
+const MARKETS = [
+  {code:'nigeria',name:'尼日利亚',region:'africa',duty:0.15,vat:0.075,port:'Lagos',steering:'lhd',freight:1800,portCharge:250,local:300},
+  {code:'tanzania',name:'坦桑尼亚',region:'africa',duty:0.25,vat:0.18,port:'Dar es Salaam',steering:'rhd',freight:1500,freightRate:98,portCharge:200,local:260},
+  {code:'ghana',name:'加纳',region:'africa',duty:0.10,vat:0.125,port:'Tema',steering:'lhd',freight:1600,portCharge:220,local:280},
+  {code:'kenya',name:'肯尼亚',region:'africa',duty:0.25,vat:0.16,port:'Mombasa',steering:'rhd',freight:1400,freightRate:93,portCharge:190,local:240},
+  {code:'mozambique',name:'莫桑比克',region:'africa',duty:0.20,vat:0.17,port:'Maputo',steering:'rhd',freight:1300,freightRate:111,portCharge:180,local:220},
+  {code:'angola',name:'安哥拉',region:'africa',duty:0.10,vat:0.10,port:'Luanda',steering:'lhd',freight:1700,portCharge:230,local:290},
+  {code:'cameroon',name:'喀麦隆',region:'africa',duty:0.20,vat:0.19,port:'Douala',steering:'lhd',freight:1750,portCharge:240,local:290},
+  {code:'ethiopia',name:'埃塞俄比亚',region:'africa',duty:0.30,vat:0.15,port:'Djibouti',steering:'lhd',freight:1600,portCharge:210,local:270},
+  {code:'senegal',name:'塞内加尔',region:'africa',duty:0.15,vat:0.18,port:'Dakar',steering:'lhd',freight:1500,portCharge:200,local:260},
+  {code:'southafrica',name:'南非',region:'africa',duty:0.18,vat:0.15,port:'Durban',steering:'rhd',freight:1400,portCharge:190,local:240},
+  {code:'zambia',name:'赞比亚',region:'africa',duty:0.15,vat:0.16,port:'Dar es Salaam',steering:'rhd',freight:1500,freightRate:98,portCharge:200,local:260},
+  {code:'drc',name:'刚果(金)',region:'africa',duty:0.20,vat:0.16,port:'Matadi',steering:'lhd',freight:1900,freightRate:130,portCharge:260,local:320},
+  {code:'congo',name:'刚果(布)',region:'africa',duty:0.20,vat:0.16,port:'Pointe-Noire 黑角',steering:'lhd',freight:1800,freightRate:108,portCharge:240,local:300},
+  {code:'liberia',name:'利比里亚',region:'africa',duty:0.15,vat:0.10,port:'Monrovia 蒙罗维亚',steering:'rhd',freight:1600,freightRate:118,portCharge:220,local:280},
+  {code:'sudan',name:'苏丹',region:'africa',duty:0.20,vat:0.17,port:'Port Sudan',steering:'lhd',freight:1500,freightRate:95,portCharge:200,local:300},
+  {code:'philippines',name:'菲律宾',region:'seasia',duty:0.10,vat:0.12,port:'Manila',steering:'lhd',freight:900,portCharge:150,local:200},
+  {code:'vietnam',name:'越南',region:'seasia',duty:0.15,vat:0.10,port:'Ho Chi Minh',steering:'lhd',freight:750,portCharge:120,local:180},
+  {code:'myanmar',name:'缅甸',region:'seasia',duty:0.15,vat:0.05,port:'Yangon',steering:'rhd',freight:850,portCharge:140,local:190},
+  {code:'thailand',name:'泰国',region:'seasia',duty:0.20,vat:0.07,port:'Laem Chabang',steering:'rhd',freight:700,portCharge:110,local:160},
+  {code:'indonesia',name:'印尼',region:'seasia',duty:0.10,vat:0.11,port:'Jakarta',steering:'rhd',freight:800,portCharge:130,local:170},
+  {code:'malaysia',name:'马来西亚',region:'seasia',duty:0.15,vat:0.06,port:'Port Klang',steering:'rhd',freight:650,portCharge:100,local:150},
+  {code:'saudiarabia',name:'沙特',region:'middleeast',duty:0.05,vat:0.15,port:'Jeddah',steering:'lhd',freight:1100,portCharge:160,local:220},
+  {code:'uae',name:'阿联酋',region:'middleeast',duty:0.05,vat:0.05,port:'Dubai',steering:'lhd',freight:1000,portCharge:150,local:200},
+  {code:'iraq',name:'伊拉克',region:'middleeast',duty:0.10,vat:0.00,port:'Basra',steering:'lhd',freight:1200,portCharge:180,local:250},
+  {code:'kazakhstan',name:'哈萨克斯坦',region:'centralasia',duty:0.12,vat:0.12,port:'Aktau',steering:'lhd',freight:2200,portCharge:200,local:500},
+  {code:'uzbekistan',name:'乌兹别克斯坦',region:'centralasia',duty:0.10,vat:0.12,port:'喀什(陆运)',steering:'lhd',freight:2500,freightRmb:17000,portCharge:250,local:600},
+  {code:'peru',name:'秘鲁',region:'southamerica',duty:0.06,vat:0.18,port:'Callao',steering:'lhd',freight:2800,portCharge:300,local:400},
+  {code:'chile',name:'智利',region:'southamerica',duty:0.06,vat:0.19,port:'San Antonio',steering:'lhd',freight:2900,portCharge:310,local:420},
+  {code:'brazil',name:'巴西',region:'southamerica',duty:0.12,vat:0.17,port:'Santos',steering:'lhd',freight:3000,portCharge:320,local:440},
+];
+
+const REGIONS = {africa:'🌍 非洲',seasia:'🌏 东南亚',middleeast:'🕌 中东',centralasia:'🏔️ 中亚',southamerica:'🌎 南美'};
+
+// ============================================================
+//  市场情报数据
+// ============================================================
+const MARKET_INTEL = {
+  nigeria:{heat:5,trend:'up',certs:['SONCAP','PVoC'],certFee:350,certPeriod:'2-3周',hotTypes:'自卸车/牵引车',hotHp:'340-460PS',priceRange:[15000,35000],notes:'非洲第一大卡车市场，基建项目多自卸车需求旺盛。进口需SONCAP认证，建议提前办理'},
+  tanzania:{heat:4,trend:'up',certs:['PVoC'],certFee:300,certPeriod:'2周',hotTypes:'牵引车/载货车',hotHp:'340-420PS',priceRange:[14000,30000],notes:'东非物流枢纽，达累斯萨拉姆港辐射内陆多国。右舵市场，矿产运输牵引车需求大'},
+  ghana:{heat:3,trend:'stable',certs:['PVoC'],certFee:280,certPeriod:'2周',hotTypes:'自卸车/载货车',hotHp:'290-380PS',priceRange:[13000,28000],notes:'矿业和基建拉动自卸车需求，特马港通关效率较高'},
+  kenya:{heat:4,trend:'up',certs:['PVoC','KEBS'],certFee:320,certPeriod:'2-3周',hotTypes:'牵引车/载货车',hotHp:'340-440PS',priceRange:[15000,32000],notes:'东非最大经济体，蒙巴萨港是东非门户。KEBS认证强制，右舵市场'},
+  mozambique:{heat:3,trend:'stable',certs:['SGS'],certFee:250,certPeriod:'2周',hotTypes:'自卸车/牵引车',hotHp:'340-400PS',priceRange:[12000,26000],notes:'煤炭出口带动重卡需求，马普托港为主要口岸'},
+  angola:{heat:3,trend:'up',certs:['BV'],certFee:280,certPeriod:'2-3周',hotTypes:'自卸车/牵引车',hotHp:'371-460PS',priceRange:[14000,32000],notes:'石油经济支撑基建投资，罗安达港为主要口岸。清关较慢需预留时间'},
+  cameroon:{heat:2,trend:'stable',certs:['PVoC'],certFee:260,certPeriod:'2周',hotTypes:'载货车/自卸车',hotHp:'290-380PS',priceRange:[12000,25000],notes:'中非地区门户，杜阿拉港辐射中非国家。市场体量中等'},
+  ethiopia:{heat:3,trend:'up',certs:['PVoC'],certFee:300,certPeriod:'3周',hotTypes:'载货车/牵引车',hotHp:'340-420PS',priceRange:[13000,28000],notes:'人口过亿的大市场，基建投资增长快。吉布提港中转，关税较高'},
+  senegal:{heat:2,trend:'stable',certs:['PVoC'],certFee:250,certPeriod:'2周',hotTypes:'载货车/自卸车',hotHp:'290-380PS',priceRange:[12000,26000],notes:'西非法语区枢纽，达喀尔港服务西非多国'},
+  southafrica:{heat:3,trend:'down',certs:['LOA'],certFee:400,certPeriod:'4-6周',hotTypes:'牵引车/载货车',hotHp:'420-560PS',priceRange:[20000,45000],notes:'市场成熟竞争激烈，对车辆品质要求高。LOA认证周期长，右舵市场'},
+  zambia:{heat:2,trend:'stable',certs:['SGS'],certFee:250,certPeriod:'2周',hotTypes:'自卸车/牵引车',hotHp:'340-440PS',priceRange:[14000,30000],notes:'铜矿大国，矿用自卸车需求稳定。经达累斯萨拉姆港中转'},
+  drc:{heat:3,trend:'up',certs:['OCC'],certFee:300,certPeriod:'3-4周',hotTypes:'自卸车/牵引车',hotHp:'371-460PS',priceRange:[15000,35000],notes:'矿业大国，卡车需求大但风险也高。清关复杂，建议有当地合作伙伴'},
+  congo:{heat:2,trend:'stable',certs:['BV'],certFee:280,certPeriod:'2-3周',hotTypes:'自卸车/载货车',hotHp:'340-440PS',priceRange:[14000,32000],notes:'刚果(布)黑角港直达航线，石油经济带动基建。法语区市场'},
+  liberia:{heat:2,trend:'up',certs:['PVoC'],certFee:260,certPeriod:'2周',hotTypes:'自卸车/牵引车',hotHp:'340-420PS',priceRange:[13000,30000],notes:'西非市场，蒙罗维亚港航线。矿业与基建复苏带动需求'},
+  sudan:{heat:2,trend:'stable',certs:['PVoC'],certFee:280,certPeriod:'2-3周',hotTypes:'自卸车/载货车',hotHp:'290-400PS',priceRange:[12000,28000],notes:'苏丹港直达航线，农业与矿业运输需求。右舵为主'},
+  philippines:{heat:4,trend:'up',certs:['BPS','ICC'],certFee:200,certPeriod:'1-2周',hotTypes:'载货车/自卸车',hotHp:'240-380PS',priceRange:[10000,25000],notes:'东南亚大市场，基建"大建特建"计划带动需求。左舵，海运近'},
+  vietnam:{heat:4,trend:'up',certs:['CR','QCVN'],certFee:180,certPeriod:'1-2周',hotTypes:'载货车/牵引车',hotHp:'290-420PS',priceRange:[10000,26000],notes:'经济增长快物流需求大，左舵。距离近运费低，排放要求趋严'},
+  myanmar:{heat:2,trend:'down',certs:['无'],certFee:0,certPeriod:'1周',hotTypes:'自卸车/载货车',hotHp:'340-420PS',priceRange:[10000,22000],notes:'政局不稳风险高，但价格敏感型客户多。右舵市场'},
+  thailand:{heat:2,trend:'stable',certs:['TISI'],certFee:500,certPeriod:'4-6周',hotTypes:'牵引车',hotHp:'420-540PS',priceRange:[18000,40000],notes:'本地汽车工业发达，二手车需TISI认证。右舵，对品质要求高'},
+  indonesia:{heat:3,trend:'up',certs:['SNI'],certFee:350,certPeriod:'3-4周',hotTypes:'载货车/自卸车',hotHp:'240-400PS',priceRange:[10000,28000],notes:'群岛国家载货车需求大，SNI认证强制。右舵市场'},
+  malaysia:{heat:2,trend:'stable',certs:['SIRIM'],certFee:400,certPeriod:'3-4周',hotTypes:'牵引车/载货车',hotHp:'340-460PS',priceRange:[15000,35000],notes:'市场较成熟，SIRIM认证要求严格。右舵，对品质要求高'},
+  saudiarabia:{heat:4,trend:'up',certs:['SABER','SASO'],certFee:500,certPeriod:'3-4周',hotTypes:'牵引车/自卸车',hotHp:'440-580PS',priceRange:[20000,45000],notes:'中东最大市场，SABER/SASO认证强制。油价高时基建投入大，大马力牵引车需求旺盛'},
+  uae:{heat:3,trend:'stable',certs:['GCC','ESMA'],certFee:450,certPeriod:'3周',hotTypes:'牵引车/载货车',hotHp:'420-540PS',priceRange:[18000,42000],notes:'中东转口贸易枢纽，迪拜港辐射海湾及非洲。GCC认证'},
+  iraq:{heat:3,trend:'up',certs:['COC'],certFee:300,certPeriod:'2-3周',hotTypes:'自卸车/牵引车',hotHp:'371-460PS',priceRange:[15000,35000],notes:'战后重建需求大，巴士拉港为主要口岸。付款风险较高建议预付'},
+  kazakhstan:{heat:3,trend:'up',certs:['EAC','CU-TR'],certFee:400,certPeriod:'4周',hotTypes:'牵引车/自卸车',hotHp:'380-500PS',priceRange:[18000,40000],notes:'中亚最大市场，油气矿业带动重卡需求。EAC（欧亚经济联盟）认证强制，陆运可达'},
+  uzbekistan:{heat:2,trend:'up',certs:['UzStandard'],certFee:350,certPeriod:'4周',hotTypes:'载货车/牵引车',hotHp:'340-460PS',priceRange:[16000,38000],notes:'中亚人口最多国家，基建投资增长。经阿拉木图中转'},
+  peru:{heat:2,trend:'stable',certs:['MTC','INACAL'],certFee:350,certPeriod:'3-4周',hotTypes:'自卸车/牵引车',hotHp:'340-460PS',priceRange:[18000,38000],notes:'矿业大国，矿用自卸需求大。利马卡亚俄港，运费较高'},
+  chile:{heat:2,trend:'stable',certs:['SEC','3CV'],certFee:380,certPeriod:'3-4周',hotTypes:'牵引车/自卸车',hotHp:'380-500PS',priceRange:[20000,42000],notes:'铜矿大国，对车辆品质要求高。圣安东尼奥港，排放要求严格'},
+  brazil:{heat:2,trend:'down',certs:['INMETRO','LCVM'],certFee:600,certPeriod:'6-8周',hotTypes:'牵引车/载货车',hotHp:'420-540PS',priceRange:[22000,48000],notes:'本地汽车工业强保护关税高，INMETRO认证复杂周期长。非首选市场'},
+};
+
+
+/* ============================================================
+   状态
+   ============================================================ */
+const state = {
+  brand:'sinotruk', type:'tractor', modelIdx:0,
+  drive:'6x4', emission:'国五',
+  year:2022, condition:'good', mileage:80000,
+  marketCode:'nigeria', steering:'lhd',
+  exchangeRate:6.7939, profitMargin:8, commissionRate:2,
+  inlandFee:3500, inspectFee:2000, portCharge:1200,
+  manualPrice:null
+};
+const COND_MAP = { excellent:1.08, good:1, fair:0.9, poor:0.78 };
+const COND_LABEL = { excellent:'优', good:'良', fair:'中', poor:'差' };
+let libFilter = { brand:'all', type:'all', search:'' };
+
+const $ = id => document.getElementById(id);
+const fmt = (n, d=0) => Number(n||0).toLocaleString('zh-CN', {minimumFractionDigits:d, maximumFractionDigits:d});
+const getModels = (brand, type) => ((MODELS[brand]||{})[type]||[]);
+const getModel = () => getModels(state.brand, state.type)[state.modelIdx];
+
+/* ============================================================
+   参数分组定义
+   ============================================================ */
+const PARAM_LABELS = {
+  drv:'驱动形式', engModel:'发动机型号', engBrand:'发动机品牌', disp:'排量', power:'额定功率',
+  torque:'最大扭矩', emission:'排放标准', cyl:'气缸数', cylArr:'气缸排列', ratedRpm:'额定转速',
+  techRoute:'技术路线', gbModel:'变速箱型号', gbBrand:'变速箱品牌', gbShift:'换挡方式',
+  gbFwd:'前进档位', gbRev:'倒档数', wb:'轴距', sizeL:'外形尺寸(长)', sizeW:'外形尺寸(宽)',
+  sizeH:'外形尺寸(高)', weight:'整备质量', gvw:'总质量', tow:'牵引总质量', speed:'最高车速',
+  origin:'产地', cabin:'驾驶室', seats:'座位数', seatRow:'驾驶室排半', bunkW:'卧铺宽度',
+  tankCap:'油箱容积', tankMat:'油箱材质', faDesc:'前桥描述', raDesc:'后桥描述',
+  faLoad:'前桥载荷', raLoad:'后桥载荷', ratio:'后桥速比', susp:'悬架形式',
+  spring:'钢板弹簧片数', saddle:'鞍座', tireN:'轮胎数量', tireSpec:'轮胎规格',
+  brakeType:'制动系统', parkBrake:'驻车制动', fBrake:'前轮制动', rBrake:'后轮制动'
+};
+const PARAM_GROUPS = [
+  { name:'基本参数', keys:['drv','emission','origin'] },
+  { name:'发动机', keys:['engModel','engBrand','disp','power','torque','cyl','cylArr','ratedRpm','techRoute'] },
+  { name:'变速箱', keys:['gbModel','gbBrand','gbShift','gbFwd','gbRev'] },
+  { name:'尺寸与重量', keys:['wb','sizeL','sizeW','sizeH','weight','gvw','tow','speed'] },
+  { name:'底盘与车桥', keys:['faDesc','raDesc','faLoad','raLoad','ratio','susp','spring','saddle'] },
+  { name:'驾驶室与油箱', keys:['cabin','seats','seatRow','bunkW','tankCap','tankMat'] },
+  { name:'轮胎与制动', keys:['tireN','tireSpec','brakeType','parkBrake','fBrake','rBrake'] }
+];
+
+/* ============================================================
+   计算
+   ============================================================ */
+function getCargoVol(m) {
+  const p = (m && m.params) || {};
+  const wt = parseFloat(p.weight) || 0;
+  const L = parseFloat(p.sizeL) || 0, W = parseFloat(p.sizeW) || 0, H = parseFloat(p.sizeH) || 0;
+  const cbm = Math.round((L * W * H) * 10) / 10;
+  return { wt, cbm, ton: Math.max(wt, cbm) };
+}
+function calcSeaFreight(mk, m) {
+  if (mk.freightRmb) return { mode:'rmb', freight: Math.round(mk.freightRmb / state.exchangeRate) };
+  if (mk.freightRate) {
+    const c = getCargoVol(m);
+    return { mode:'toncbm', rate: mk.freightRate, ton: c.ton, freight: Math.round(mk.freightRate * c.ton) };
+  }
+  const freightF = DRIVE_FREIGHT[state.drive] ?? 1;
+  const dumpExtra = state.type === 'dump' ? 1.15 : 1;
+  return { mode:'fixed', freight: Math.round(mk.freight * freightF * dumpExtra) };
+}
+function freightLabel(sf) {
+  if (sf.mode === 'toncbm') return '海运费（' + sf.rate + ' × ' + sf.ton + ' 吨方）';
+  if (sf.mode === 'rmb') return '海运费（RMB 包价）';
+  return '海运费';
+}
+function estimatePrice() {
+  const m = getModel(); if (!m) return 0;
+  const age = Math.max(0, new Date().getFullYear() - state.year);
+  const depRate = state.type === 'cargo' ? 0.08 : 0.1;
+  const dep = 1 - Math.min(age * depRate, 0.55);
+  const cond = COND_MAP[state.condition] ?? 1;
+  const mileUnit = state.type === 'cargo' ? 50000 : 100000;
+  const mileRate = state.type === 'cargo' ? 0.02 : 0.03;
+  const mileDisc = Math.min((state.mileage / mileUnit) * mileRate, 0.15);
+  const driveF = DRIVE_FACTORS[state.drive] ?? 1;
+  const emisF = EMISSION_FACTORS[state.emission] ?? 1;
+  return Math.round(m.price * driveF * emisF * dep * cond * (1 - mileDisc) / 1000) * 1000;
+}
+
+function compute() {
+  const m = getModel();
+  const mk = MARKETS.find(x => x.code === state.marketCode) || MARKETS[0];
+
+  const estPrice = (state.manualPrice !== null && state.manualPrice > 0) ? state.manualPrice : estimatePrice();
+
+  // 国内成本
+  const refurbRate = state.condition === 'excellent' ? 0.03 : state.condition === 'good' ? 0.05 : state.condition === 'fair' ? 0.08 : 0.12;
+  const refurb = Math.round(estPrice * refurbRate);
+  const sf = state.steering === 'rhd' ? (STEERING_FEES[state.type] || 0) : 0;
+  const totalDomestic = estPrice + refurb + sf + state.inlandFee + state.inspectFee;
+
+  // 物流
+  const sfCalc = calcSeaFreight(mk, m);
+  const freight = sfCalc.freight;
+  const freightF = DRIVE_FREIGHT[state.drive] ?? 1;
+  const destPort = Math.round(mk.portCharge * freightF);
+  const local = Math.round(mk.local * freightF);
+  const totalLogistics = freight + state.portCharge + destPort + local;
+
+  // 报价
+  const fobUsd = totalDomestic / state.exchangeRate + state.portCharge;
+  const cifUsd = fobUsd + freight;
+
+  // 目的国税费
+  const insurance = cifUsd * 0.003;
+  const importDuty = (cifUsd + insurance) * mk.duty;
+  const vat = (cifUsd + insurance + importDuty) * mk.vat;
+  const agent = mk.duty > 0.15 ? 500 : 400;
+  const totalTax = importDuty + vat + insurance + agent;
+  const landPrice = cifUsd + totalTax;
+
+  // 利润
+  const commission = landPrice * state.commissionRate / 100;
+  const netProfitUsd = landPrice * (1 + state.profitMargin / 100) - landPrice - commission;
+  const netProfitCny = netProfitUsd * state.exchangeRate;
+  const roi = totalDomestic > 0 ? (netProfitCny / totalDomestic) * 100 : 0;
+
+  return { m, mk, estPrice, refurb, sf, totalDomestic, sfCalc, freight, destPort, local,
+           totalLogistics, fobUsd, cifUsd, insurance, importDuty, vat, agent, totalTax, landPrice,
+           netProfitCny, roi };
+}
+
+function render() {
+  const r = compute();
+
+  $('fobUsd').textContent = '$' + fmt(Math.round(r.fobUsd));
+  $('cifUsd').textContent = '$' + fmt(Math.round(r.cifUsd));
+  $('landPrice').textContent = '$' + fmt(Math.round(r.landPrice));
+  $('netProfit').textContent = '¥' + fmt(Math.round(r.netProfitCny));
+  $('roi').textContent = r.roi.toFixed(1) + '%';
+  $('totalCost').textContent = '¥' + fmt(r.totalDomestic);
+
+  $('profitCard').className = 'rc ' + (r.netProfitCny >= 0 ? 'pos' : 'neg');
+  $('roiCard').className = 'rc ' + (r.roi >= 0 ? 'pos' : 'neg');
+
+  // 明细
+  $('costTable').innerHTML =
+    '<tr><td>车辆估价</td><td>¥' + fmt(r.estPrice) + '</td></tr>' +
+    '<tr><td>整备翻新费</td><td>¥' + fmt(r.refurb) + '</td></tr>' +
+    (r.sf ? '<tr><td>右舵改动费</td><td>¥' + fmt(r.sf) + '</td></tr>' : '') +
+    '<tr><td>国内运输到港</td><td>¥' + fmt(state.inlandFee) + '</td></tr>' +
+    '<tr><td>检测认证费</td><td>¥' + fmt(state.inspectFee) + '</td></tr>' +
+    '<tr class="total"><td>国内总成本</td><td>¥' + fmt(r.totalDomestic) + '</td></tr>';
+
+  $('logisticsTable').innerHTML =
+    '<tr><td>' + freightLabel(r.sfCalc) + '</td><td>$' + fmt(r.freight) + '</td></tr>' +
+    '<tr><td>装船港杂费</td><td>$' + fmt(state.portCharge) + '</td></tr>' +
+    '<tr><td>目的港卸货费</td><td>$' + fmt(r.destPort) + '</td></tr>' +
+    '<tr><td>目的港到门</td><td>$' + fmt(r.local) + '</td></tr>' +
+    '<tr class="total"><td>物流合计</td><td>$' + fmt(r.totalLogistics) + '</td></tr>';
+
+  $('taxTable').innerHTML =
+    '<tr><td>进口关税（' + (r.mk.duty * 100).toFixed(0) + '%）</td><td>$' + fmt(r.importDuty) + '</td></tr>' +
+    '<tr><td>增值税 VAT（' + (r.mk.vat * 100).toFixed(1) + '%）</td><td>$' + fmt(r.vat) + '</td></tr>' +
+    '<tr><td>保险费</td><td>$' + fmt(r.insurance) + '</td></tr>' +
+    '<tr><td>清关代理费</td><td>$' + fmt(r.agent) + '</td></tr>' +
+    '<tr class="total"><td>税费合计</td><td>$' + fmt(r.totalTax) + '</td></tr>';
+
+  // 提示
+  const m = r.m;
+  $('modelHint').textContent = m
+    ? m.sub + ' · ' + m.hp + 'PS · ' + DRIVE_LABELS[state.drive] + ' · ' + state.emission +
+      ' · 参考价 ¥' + fmt(m.price)
+    : '请选择车型';
+  $('marketHint').textContent = r.mk.name + ' · ' + r.mk.port + ' · 默认' + (r.mk.steering === 'rhd' ? '右舵' : '左舵');
+  $('steerHint').textContent = state.steering === 'rhd'
+    ? '右舵改动费 ¥' + fmt(STEERING_FEES[state.type] || 0) : '左舵无需改动';
+
+  // 参数
+  renderParams(m);
+}
+
+/* ============================================================
+   渲染
+   ============================================================ */
+function renderChips(container, items, activeVal, onPick, disabledSet) {
+  container.innerHTML = '';
+  items.forEach(it => {
+    const val = it.value ?? it, label = it.label ?? it;
+    const el = document.createElement('span');
+    const dis = disabledSet && !disabledSet.includes(val);
+    el.className = 'chip' + (val === activeVal ? ' active' : '') + (dis ? ' disabled' : '');
+    el.textContent = label;
+    if (!dis) el.onclick = () => onPick(val);
+    container.appendChild(el);
+  });
+}
+
+function renderParams(m) {
+  const g = $('paramGroups');
+  if (!m) { g.innerHTML = '<p class="text-sm text-gray-400">请先选择车型</p>'; $('paramTitle').textContent = ''; return; }
+  $('paramTitle').textContent = m.sub + ' · ' + m.label + ' · ' + m.hp + 'PS';
+  const p = m.params || {};
+  g.innerHTML = PARAM_GROUPS.map(grp => {
+    const rows = grp.keys.filter(k => p[k] !== undefined && p[k] !== '')
+      .map(k => '<div class="prow"><dt>' + (PARAM_LABELS[k] || k) + '</dt><dd>' + p[k] + '</dd></div>').join('');
+    if (!rows) return '';
+    return '<div class="pgroup"><h4>' + grp.name + '</h4><div>' + rows + '</div></div>';
+  }).join('');
+}
+
+function renderModelList() {
+  const arr = getModels(state.brand, state.type);
+  const sel = $('modelSel');
+  sel.innerHTML = arr.map((m, i) =>
+    '<option value="' + i + '">' + m.label + '　·　' + m.hp + 'PS　·　¥' + fmt(m.price) + '</option>'
+  ).join('');
+  sel.value = String(state.modelIdx);
+}
+
+function applyModelDefaults() {
+  const m = getModel(); if (!m) return;
+  state.drive = (m.drives && m.drives[0]) || '6x4';
+  state.emission = (m.emissions && m.emissions[0]) || '国五';
+  const hp = m.hp;
+  state.year = 2022;
+  state.mileage = state.type === 'cargo' ? 60000 : 80000;
+  state.manualPrice = null;
+  $('manualPriceInput').value = '';
+}
+
+function renderAll() {
+  renderChips($('brandChips'), BRANDS.map(b => ({ value:b.key, label:b.name })), state.brand, v => {
+    state.brand = v; state.modelIdx = 0; state.type = 'tractor';
+    applyModelDefaults(); renderAll();
+  });
+  renderChips($('typeChips'), [
+    { value:'tractor', label:'牵引车' }, { value:'dump', label:'自卸车' }, { value:'cargo', label:'载货车' }
+  ], state.type, v => {
+    state.type = v; state.modelIdx = 0; applyModelDefaults(); renderAll();
+  });
+
+  renderModelList();
+
+  const m = getModel();
+  renderChips($('driveChips'), ALL_DRIVES.map(d => ({ value:d, label:DRIVE_LABELS[d] })), state.drive, v => {
+    state.drive = v; renderAll();
+  }, m ? m.drives : ALL_DRIVES);
+  renderChips($('emissionChips'), ALL_EMISSIONS.map(e => ({ value:e, label:EMISSION_LABELS[e] || e })), state.emission, v => {
+    state.emission = v; renderAll();
+  }, m ? m.emissions : ALL_EMISSIONS);
+  renderChips($('condChips'), Object.keys(COND_LABEL).map(k => ({ value:k, label:COND_LABEL[k] })), state.condition, v => {
+    state.condition = v; renderAll();
+  });
+
+  $('marketSel').innerHTML = MARKETS.map(mk => '<option value="' + mk.code + '">' + mk.name + '</option>').join('');
+  $('marketSel').value = state.marketCode;
+
+  renderChips($('steerChips'), [
+    { value:'lhd', label:'左舵' }, { value:'rhd', label:'右舵' }
+  ], state.steering, v => { state.steering = v; renderAll(); });
+
+  renderLib();
+  render();
+}
+
+function renderLib() {
+  renderChips($('libBrandChips'), [{ value:'all', label:'全部' }].concat(
+    BRANDS.map(b => ({ value:b.key, label:b.short }))), libFilter.brand, v => {
+    libFilter.brand = v; renderLib();
+  });
+  renderChips($('libTypeChips'), [
+    { value:'all', label:'全部' }, { value:'tractor', label:'牵引车' },
+    { value:'dump', label:'自卸车' }, { value:'cargo', label:'载货车' }
+  ], libFilter.type, v => { libFilter.type = v; renderLib(); });
+
+  const kw = libFilter.search.trim().toLowerCase();
+  let cards = [];
+  BRANDS.forEach(b => {
+    if (libFilter.brand !== 'all' && libFilter.brand !== b.key) return;
+    ['tractor', 'dump', 'cargo'].forEach(t => {
+      if (libFilter.type !== 'all' && libFilter.type !== t) return;
+      (getModels(b.key, t)).forEach((m, idx) => {
+        if (kw && !(m.label + ' ' + m.sub).toLowerCase().includes(kw)) return;
+        cards.push({ b, t, m, idx });
+      });
+    });
+  });
+
+  if (!cards.length) { $('libGrid').innerHTML = '<p class="text-sm text-gray-400 py-6">没有匹配的车型</p>'; return; }
+
+  $('libGrid').innerHTML = cards.map(c => {
+    const isCur = (c.b.key === state.brand && c.t === state.type && c.idx === state.modelIdx);
+    const grp = PARAM_GROUPS.map(g => {
+      const rows = g.keys.filter(k => c.m.params && c.m.params[k] !== undefined && c.m.params[k] !== '')
+        .map(k => '<div class="prow"><dt>' + (PARAM_LABELS[k] || k) + '</dt><dd>' + c.m.params[k] + '</dd></div>').join('');
+      return rows ? '<div class="pgroup mb-3"><h4>' + g.name + '</h4><div>' + rows + '</div></div>' : '';
+    }).join('');
+
+    return '<div class="mcard' + (isCur ? ' active' : '') + '" data-b="' + c.b.key + '" data-t="' + c.t + '" data-i="' + c.idx + '">' +
+      '<div class="p-4 cursor-pointer use-btn">' +
+        '<div class="flex items-start justify-between gap-2 mb-2">' +
+          '<div><div class="font-bold text-gray-900">' + c.m.label + '</div>' +
+          '<div class="text-xs text-gray-500 mt-0.5">' + c.m.sub + '</div></div>' +
+          '<span class="badge" style="background:' + c.b.color + '1a;color:' + c.b.color + '">' + ({tractor:'牵引',dump:'自卸',cargo:'载货'}[c.t]) + '</span>' +
+        '</div>' +
+        '<div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600 mt-3">' +
+          '<span>' + c.m.hp + ' PS</span>' +
+          '<span>' + (c.m.drives || []).map(d => DRIVE_LABELS[d] || d).join(' / ') + '</span>' +
+          '<span>' + (c.m.emissions || []).join(' / ') + '</span>' +
+        '</div>' +
+        '<div class="mt-3 pt-3 border-t border-gray-100 flex items-baseline justify-between">' +
+          '<span class="text-xs text-gray-500">参考价</span>' +
+          '<span class="font-bold text-primary">¥' + fmt(c.m.price) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<details class="border-t border-gray-100">' +
+        '<summary class="px-4 py-2.5 text-xs font-semibold text-primary hover:bg-blue-50">参数明细</summary>' +
+        '<div class="p-3 max-h-96 overflow-y-auto scroll-thin bg-gray-50">' + grp + '</div>' +
+      '</details>' +
+    '</div>';
+  }).join('');
+
+  $('libGrid').querySelectorAll('.use-btn').forEach(btn => {
+    btn.onclick = () => {
+      const card = btn.closest('.mcard');
+      state.brand = card.dataset.b; state.type = card.dataset.t;
+      state.modelIdx = parseInt(card.dataset.i, 10);
+      applyModelDefaults(); renderAll();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  });
+}
+
+/* ============================================================
+   事件绑定
+   ============================================================ */
+$('modelSel').onchange = e => {
+  state.modelIdx = parseInt(e.target.value, 10);
+  applyModelDefaults(); renderAll();
+};
+$('marketSel').onchange = e => { state.marketCode = e.target.value; render(); };
+$('yearInput').oninput = e => { state.year = parseInt(e.target.value, 10) || 2022; if (state.manualPrice === null) render(); };
+$('mileageInput').oninput = e => { state.mileage = parseInt(e.target.value, 10) || 0; if (state.manualPrice === null) render(); };
+$('rateInput').oninput = e => { state.exchangeRate = parseFloat(e.target.value) || 6.7939; render(); };
+$('profitInput').oninput = e => { state.profitMargin = parseFloat(e.target.value) || 0; render(); };
+$('commInput').oninput = e => { state.commissionRate = parseFloat(e.target.value) || 0; render(); };
+$('portFeeInput').oninput = e => { state.portCharge = parseFloat(e.target.value) || 0; render(); };
+$('inlandInput').oninput = e => { state.inlandFee = parseFloat(e.target.value) || 0; render(); };
+$('inspectInput').oninput = e => { state.inspectFee = parseFloat(e.target.value) || 0; render(); };
+$('manualPriceInput').oninput = e => {
+  const v = parseFloat(e.target.value);
+  state.manualPrice = (isNaN(v) || v <= 0) ? null : v;
+  render();
+};
+$('libSearch').oninput = e => { libFilter.search = e.target.value; renderLib(); };
+$('mbtn').onclick = () => $('mmenu').classList.toggle('hidden');
+
+/* ============================================================
+   初始化
+   ============================================================ */
+applyModelDefaults();
+$('yearInput').value = state.year;
+$('mileageInput').value = state.mileage;
+$('rateInput').value = state.exchangeRate;
+$('profitInput').value = state.profitMargin;
+$('commInput').value = state.commissionRate;
+$('portFeeInput').value = state.portCharge;
+$('inlandInput').value = state.inlandFee;
+$('inspectInput').value = state.inspectFee;
+renderAll();
+</script>
+</body>
+</html>
